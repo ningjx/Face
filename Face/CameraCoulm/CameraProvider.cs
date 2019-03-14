@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AForge.Video;
 using AForge.Video.DirectShow;
-using System.Drawing;
+
 namespace Face.CameraCoulm
 {
     class CameraProvider

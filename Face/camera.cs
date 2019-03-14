@@ -9,6 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Face.CameraCoulm;
+using Face.Recognition;
+using Newtonsoft.Json.Linq;
+
 namespace Face
 {
     public partial class Camera : Form
@@ -78,13 +81,15 @@ namespace Face
         /// </summary>
         private void button2_Click_1(object sender, EventArgs e)
         {
-            if(pictureBox1.Image == null)
+            if (pictureBox1.Image == null)
             {
                 MessageBox.Show("先拍照片啊...");
             }
             else
             {
-
+                BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+                JObject result = baiduRecognitionProvider.NetRecognition(pictureBox1.Image);
+                textBox1.Text =  result.ToString();
             }
         }
 
@@ -102,6 +107,22 @@ namespace Face
             MainForm mainForm = new MainForm();
             mainForm.Show();
             this.Close();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null)
+            {
+                MessageBox.Show("先拍照片啊...");
+            }
+            else
+            {
+                Register register = new Register();
+                register.Image = pictureBox1.Image;
+                register.Show();
+
+            }
+            
         }
     }
 }
