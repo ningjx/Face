@@ -5,6 +5,26 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Face", "Face\Face.csproj", "{FDE15213-D48A-451C-A916-F944EA6D66B5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Redis", "Redis", "{39DBCDC2-1896-4B0F-ABFB-D188D97B62D2}"
+	ProjectSection(SolutionItems) = preProject
+		..\redis-latest\dump.rdb = ..\redis-latest\dump.rdb
+		..\redis-latest\Redis%20on%20Windows%20Release%20Notes.docx = ..\redis-latest\Redis%20on%20Windows%20Release%20Notes.docx
+		..\redis-latest\Redis%20on%20Windows.docx = ..\redis-latest\Redis%20on%20Windows.docx
+		..\redis-latest\redis-benchmark.exe = ..\redis-latest\redis-benchmark.exe
+		..\redis-latest\redis-benchmark.pdb = ..\redis-latest\redis-benchmark.pdb
+		..\redis-latest\redis-check-aof.exe = ..\redis-latest\redis-check-aof.exe
+		..\redis-latest\redis-check-aof.pdb = ..\redis-latest\redis-check-aof.pdb
+		..\redis-latest\redis-check-dump.exe = ..\redis-latest\redis-check-dump.exe
+		..\redis-latest\redis-check-dump.pdb = ..\redis-latest\redis-check-dump.pdb
+		..\redis-latest\redis-cli.exe = ..\redis-latest\redis-cli.exe
+		..\redis-latest\redis-cli.pdb = ..\redis-latest\redis-cli.pdb
+		..\redis-latest\redis-server.exe = ..\redis-latest\redis-server.exe
+		..\redis-latest\redis-server.pdb = ..\redis-latest\redis-server.pdb
+		..\redis-latest\redis.windows-service.conf = ..\redis-latest\redis.windows-service.conf
+		..\redis-latest\redis.windows.conf = ..\redis-latest\redis.windows.conf
+		..\redis-latest\Windows%20Service%20Documentation.docx = ..\redis-latest\Windows%20Service%20Documentation.docx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
