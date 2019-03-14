@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RedisConfig;
-using 
-namespace RedisConfig
+namespace Face.Data.Redis
 {
     class RedisInformation
     {

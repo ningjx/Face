@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RedisConfig.Properties
+namespace MainForm.Properties
 {
 
 
