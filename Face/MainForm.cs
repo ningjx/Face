@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MainForm
+namespace Face
 {
     public partial class MainForm : Form
     {
@@ -21,5 +21,30 @@ namespace MainForm
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Camera camera = new Camera();
+            camera.Show();
+            this.Hide();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            System.Environment.Exit(0);
+        }
+
+        //private void FrmMain_FormClosde(object sender, FormClosingEventArgs e)
+
+        //{
+
+        //    System.Environment.Exit(0);
+
+        //}
     }
 }
