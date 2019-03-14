@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using IronPython.Runtime.Operations;
 
 namespace Face.Recognition
 {
@@ -78,6 +79,40 @@ namespace Face.Recognition
                 return new JObject();
             }
             
+        }
+
+        public JObject NetFaceMatch(Image image)
+        {
+            try
+            {
+                var client = new Baidu.Aip.Face.Face(API_KEY, SECRET_KEY)
+                {
+                    Timeout = 60000  // 修改超时时间
+                };
+
+                //图片转为Base64
+                Bitmap bmp = new Bitmap(image);
+                MemoryStream ms = new MemoryStream();
+                bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                byte[] arr = new byte[ms.Length]; ms.Position = 0;
+                ms.Read(arr, 0, (int)ms.Length); ms.Close();
+                var base64 = Convert.ToBase64String(arr);
+
+                string imageType = "BASE64";
+                List<string> groupList = new List<string>();
+
+                groupList.Add("UsualUser");
+                groupList.Add("StarUser");
+
+                string group = string.Join(",", groupList.ToArray());
+                JObject result = client.Search(base64, imageType,group);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("连接人脸识别API出错：" + ex);
+                return new JObject();
+            }
         }
 
     }

@@ -88,7 +88,7 @@ namespace Face
             else
             {
                 BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
-                JObject result = baiduRecognitionProvider.NetRecognition(pictureBox1.Image);
+                JObject result = baiduRecognitionProvider.NetFaceMatch(pictureBox1.Image);
                 textBox1.Text =  result.ToString();
             }
         }
@@ -123,6 +123,11 @@ namespace Face
 
             }
             
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -120,10 +120,12 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(617, 34);
+            this.textBox1.Location = new System.Drawing.Point(604, 12);
+            this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(133, 21);
+            this.textBox1.Size = new System.Drawing.Size(184, 280);
             this.textBox1.TabIndex = 8;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Camera
             // 
