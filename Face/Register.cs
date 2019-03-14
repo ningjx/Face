@@ -18,7 +18,7 @@ namespace Face
             InitializeComponent();
         }
         public Image Image { get; set; }
-
+        bool isOrNot = false;
         private void Register_Load(object sender, EventArgs e)
         {
 
@@ -31,11 +31,56 @@ namespace Face
 
         private void button1_Click(object sender, EventArgs e)
         {
-            BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
-            baiduRecognitionProvider.NetFaceRegister(Image,textBox1.Text,comboBox1.Text);
+
+            try
+            {
+                if (isOrNot)
+                {
+                    BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+                    var result = baiduRecognitionProvider.NetFaceRegister(Image, comboBox1.Text, textBox1.Text);
+                    if (result != null)
+                    {
+                        MessageBox.Show("录进去了");
+                    }
+                    else { MessageBox.Show("好像没录进去"); }
+                }
+                else
+                {
+                    label3.Text = "只能输字母数字";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("出错了：" + ex);
+            }
+
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(@"^[A-Za-z0-9]+$");
+            if (!reg.IsMatch(textBox1.Text))
+            {
+                isOrNot = false;
+            }
+            else
+            {
+                label3.Text = "";
+                isOrNot = true;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
