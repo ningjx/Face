@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Face.Properties
+namespace RedisConfig.Properties
 {
 
 

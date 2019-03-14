@@ -1,4 +1,4 @@
-﻿namespace Face
+﻿namespace RedisConfig
 {
     partial class Form1
     {
