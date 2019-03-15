@@ -17,6 +17,8 @@ namespace Face.Data
             try
             {
                 BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+
+                //Task<JObject> @object = new Task<JObject>(baiduRecognitionProvider.NetFaceMatch(image) );
                 JObject jsonData = baiduRecognitionProvider.NetFaceMatch(image);
                 jsonData.TryGetValue("result", out JToken value);
                 JToken infoArry = value["user_list"];

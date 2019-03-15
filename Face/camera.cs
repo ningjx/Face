@@ -17,7 +17,7 @@ namespace Face
     public partial class Camera : Form
     {
         CameraProvider cameraProvider = new CameraProvider();
-
+        BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
         public Camera()
         {
             InitializeComponent();
@@ -27,8 +27,9 @@ namespace Face
                 Cameralist.Items.Add(name);
             }
             Cameralist.Text = camList[0];
+            
         }
-
+        
         /// <summary>
         /// 拍照图片显示
         /// </summary>
@@ -84,13 +85,12 @@ namespace Face
         {
             if (pictureBox1.Image == null)
             {
-                MessageBox.Show("先拍照片啊...");
+                textBox1.Text = "先拍一张照片啊";
             }
             else
             {
-                //BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
-                //JObject result = baiduRecognitionProvider.NetFaceMatch(pictureBox1.Image);
-                BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                //BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                //textBox1.Text = Task<string>.Factory.StartNew(new Task<string>("baiduDataProvider.NetFaceMatchData"), pictureBox1.Image);
                 textBox1.Text =  baiduDataProvider.NetFaceMatchData(pictureBox1.Image);
             }
         }
@@ -115,7 +115,7 @@ namespace Face
         {
             if (pictureBox1.Image == null)
             {
-                MessageBox.Show("先拍照片啊...");
+                textBox1.Text = "先拍一张照片啊";
             }
             else
             {
