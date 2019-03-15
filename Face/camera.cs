@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using Face.CameraCoulm;
 using Face.Recognition;
 using Newtonsoft.Json.Linq;
-
+using Face.Data;
 namespace Face
 {
     public partial class Camera : Form
@@ -77,7 +77,7 @@ namespace Face
         }
 
         /// <summary>
-        /// 进行人脸识别
+        /// 进行人脸识别匹配
         /// </summary>
         private void button2_Click_1(object sender, EventArgs e)
         {
@@ -87,9 +87,10 @@ namespace Face
             }
             else
             {
-                BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
-                JObject result = baiduRecognitionProvider.NetFaceMatch(pictureBox1.Image);
-                textBox1.Text =  result.ToString();
+                //BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+                //JObject result = baiduRecognitionProvider.NetFaceMatch(pictureBox1.Image);
+                BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                textBox1.Text =  baiduDataProvider.NetFaceMatchData(pictureBox1.Image);
             }
         }
 
