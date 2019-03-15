@@ -34,20 +34,29 @@ namespace Face
 
             try
             {
-                if (isOrNot)
+                if (textBox1.Text != null && comboBox1.Text != null)
                 {
-                    BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
-                    var result = baiduRecognitionProvider.NetFaceRegister(Image, comboBox1.Text, textBox1.Text);
-                    if (result != null)
+                    if (isOrNot)
                     {
-                        MessageBox.Show("录进去了");
+                        BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+                        var result = baiduRecognitionProvider.NetFaceRegister(Image, comboBox1.Text, textBox1.Text, textBox2.Text);
+                        if (result != null)
+                        {
+                            MessageBox.Show("录进去了");
+                        }
+                        else { MessageBox.Show("好像没录进去"); }
                     }
-                    else { MessageBox.Show("好像没录进去"); }
+                    else
+                    {
+                        label3.Text = "只能输字母数字";
+                    }
                 }
                 else
                 {
-                    label3.Text = "只能输字母数字";
+                    label3.Text = "姓名不能为空啊。。。";
+                    label4.Text = "组名不能为空啊。。。";
                 }
+
             }
             catch (Exception ex)
             {

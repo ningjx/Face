@@ -55,6 +55,7 @@ namespace Face
             else
             {
                 videoSourcePlayer1.Start();
+                pictureBox1.Image = null;
                 this.videoSourcePlayer1.Visible = true;
                 this.pictureBox1.Visible = false;
                 button1.Text = "拍照";
