@@ -42,7 +42,8 @@ namespace Face
                         var result = baiduRecognitionProvider.NetFaceRegister(Image, comboBox1.Text, textBox1.Text, textBox2.Text);
                         if (result != null)
                         {
-                            MessageBox.Show("录进去了");
+                            button1.Text = "录进去了";
+                            button1.Enabled = false;
                         }
                         else { MessageBox.Show("好像没录进去"); }
                     }
