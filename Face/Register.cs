@@ -52,9 +52,13 @@ namespace Face
                         label3.Text = "只能输字母数字";
                     }
                 }
-                else
+                else if(textBox1.Text == null)
                 {
                     label3.Text = "姓名不能为空啊。。。";
+                    
+                }
+                else if(textBox2.Text == null)
+                {
                     label4.Text = "组名不能为空啊。。。";
                 }
 
