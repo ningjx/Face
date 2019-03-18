@@ -36,12 +36,12 @@ namespace Face.Recognition
                 var base64 = Convert.ToBase64String(arr);
 
                 string imageType = "BASE64";
-                // 可选参数
-                //var options = new Dictionary<string, object>{
-                //                {"face_field", "age"},
-                //                {"max_face_num", 1},
-                //                {"face_type", "LIVE"}
-                // };
+                //可选参数
+                var options = new Dictionary<string, object>{
+                                {"face_field", "age,beauty,gender"},
+                                {"max_face_num", 1},
+                                {"face_type", "LIVE"}
+                };
                 JObject result = client.Detect(base64, imageType);
                 return result;
             }
@@ -52,6 +52,14 @@ namespace Face.Recognition
             }
         }
 
+        /// <summary>
+        /// 人脸注册
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="groupId"></param>
+        /// <param name="userId"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
         public JObject NetFaceRegister(Image image, string groupId, string userId, string info)
         {
             try
@@ -85,6 +93,11 @@ namespace Face.Recognition
 
         }
 
+        /// <summary>
+        /// 人脸匹配
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
         public JObject NetFaceMatch(Image image)
         {
             try

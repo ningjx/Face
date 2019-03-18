@@ -27,9 +27,9 @@ namespace Face
                 Cameralist.Items.Add(name);
             }
             Cameralist.Text = camList[0];
-            
+
         }
-        
+
         /// <summary>
         /// 拍照图片显示
         /// </summary>
@@ -89,10 +89,9 @@ namespace Face
             }
             else
             {
-                //BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
-                //textBox1.Text = Task<string>.Factory.StartNew(new Task<string>("baiduDataProvider.NetFaceMatchData"), pictureBox1.Image);
-                textBox1.Text =  baiduDataProvider.NetFaceMatchData(pictureBox1.Image);
-                //pictureBox1.
+                textBox1.Text = baiduDataProvider.NetFaceMatchData(pictureBox1.Image);
+                Dictionary<string, string> faceInfo = baiduDataProvider.NetRecognitionData(pictureBox1.Image);
+                pictureBox1.Image = baiduDataProvider.DrawSquar(pictureBox1.Image, faceInfo);
             }
         }
 
@@ -125,12 +124,24 @@ namespace Face
                 register.Show();
 
             }
-            
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
+        /// <summary>
+        /// 人脸检测
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Dictionary<string, string> faceInfo = baiduDataProvider.NetRecognitionData(pictureBox1.Image);
+            pictureBox1.Image = baiduDataProvider.DrawSquar(pictureBox1.Image, faceInfo);
+
+        }
+
     }
 }
