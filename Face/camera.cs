@@ -92,6 +92,7 @@ namespace Face
                 //BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
                 //textBox1.Text = Task<string>.Factory.StartNew(new Task<string>("baiduDataProvider.NetFaceMatchData"), pictureBox1.Image);
                 textBox1.Text =  baiduDataProvider.NetFaceMatchData(pictureBox1.Image);
+                //pictureBox1.
             }
         }
 
