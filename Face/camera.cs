@@ -9,12 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Face.CameraCoulm;
+using Face.Recognition;
+using Newtonsoft.Json.Linq;
+using Face.Data;
+
 namespace Face
 {
     public partial class Camera : Form
     {
         CameraProvider cameraProvider = new CameraProvider();
-
+        
         public Camera()
         {
             InitializeComponent();
@@ -24,6 +28,7 @@ namespace Face
                 Cameralist.Items.Add(name);
             }
             Cameralist.Text = camList[0];
+
         }
 
         /// <summary>
@@ -52,6 +57,7 @@ namespace Face
             else
             {
                 videoSourcePlayer1.Start();
+                pictureBox1.Image = null;
                 this.videoSourcePlayer1.Visible = true;
                 this.pictureBox1.Visible = false;
                 button1.Text = "拍照";
@@ -74,16 +80,33 @@ namespace Face
         }
 
         /// <summary>
-        /// 进行人脸识别
+        /// 进行人脸识别匹配
         /// </summary>
         private void button2_Click_1(object sender, EventArgs e)
         {
-            if(pictureBox1.Image == null)
+            if (pictureBox1.Image == null)
             {
-                MessageBox.Show("先拍照片啊...");
+                textBox1.Text = "先拍一张照片啊";
             }
             else
             {
+                Image image = pictureBox1.Image;
+                label2.Text = "正识别呢";
+                //需要异步
+                Task<Tuple<Image,string>> task = new Task<Tuple<Image, string>>
+                (() =>
+                {
+                    BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                    string text = baiduDataProvider.NetFaceMatchData(image);
+                    Image imageDeal = baiduDataProvider.DrawSquar(image, baiduDataProvider.NetRecognitionData(image));
+                    Tuple<Image, string> tuple = new Tuple<Image, string>(imageDeal, text);
+                    return tuple;
+                });
+                task.Start();
+                task.Wait();
+                pictureBox1.Image = task.Result.Item1;
+                textBox1.Text = task.Result.Item2;
+                label2.Text = "";
 
             }
         }
@@ -102,6 +125,56 @@ namespace Face
             MainForm mainForm = new MainForm();
             mainForm.Show();
             this.Close();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null)
+            {
+                textBox1.Text = "先拍一张照片啊";
+            }
+            else
+            {
+                Register register = new Register();
+                register.Image = pictureBox1.Image;
+                register.Show();
+
+            }
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        /// <summary>
+        /// 人脸检测
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Image image = pictureBox1.Image;
+            label2.Text = "检测中";
+            Task<Image> task= new Task<Image>(() =>
+            {
+                BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                return baiduDataProvider.DrawSquar(image, baiduDataProvider.NetRecognitionData(image));
+            });
+            task.Start();
+            task.Wait();
+            pictureBox1.Image = task.Result;
+            textBox1.Text = "";//以后加
+
+            label2.Text = "";
+        }
+
+        private void Camera_Load(object sender, EventArgs e)
+        {
+            Task.Run(()=> {
+                BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                baiduDataProvider.NetRecognitionData(Resource1.Image1);
+            });            
         }
     }
 }
