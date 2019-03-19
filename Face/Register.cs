@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Face.Recognition;
+using Newtonsoft.Json.Linq;
 
 namespace Face
 {
@@ -18,7 +19,7 @@ namespace Face
             InitializeComponent();
         }
         public Image Image { get; set; }
-        bool isOrNot = false;
+        //bool isOrNot = false;
         private void Register_Load(object sender, EventArgs e)
         {
 
@@ -34,32 +35,36 @@ namespace Face
 
             try
             {
-                if (textBox1.Text != null && comboBox1.Text != null)
+                if (textBox1.Text != null && comboBox1.Text != null && textBox2.Text != null)
                 {
-                    if (isOrNot)
+
+                    System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(@"^[A-Za-z0-9]+$");
+                    if (!reg.IsMatch(textBox1.Text))
+                    {
+                        label3.Text = "只能输字母数字";
+                    }
+                    else
                     {
                         BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
-                        var result = baiduRecognitionProvider.NetFaceRegister(Image, comboBox1.Text, textBox1.Text, textBox2.Text);
-                        if (result != null)
+                        string faceInfo = textBox2.Text + "`" + textBox4.Text;
+                        Task<JObject> task = new Task<JObject>(()
+                            => baiduRecognitionProvider.NetFaceRegister(Image, comboBox1.Text, textBox1.Text, faceInfo));
+                        //var result = baiduRecognitionProvider.NetFaceRegister(Image, comboBox1.Text, textBox1.Text, faceInfo);
+                        if (task.Result != null)
                         {
                             button1.Text = "录进去了";
                             button1.Enabled = false;
                         }
                         else { MessageBox.Show("好像没录进去"); }
                     }
-                    else
-                    {
-                        label3.Text = "只能输字母数字";
-                    }
+
+
                 }
-                else if(textBox1.Text == null)
+                else
                 {
-                    label3.Text = "姓名不能为空啊。。。";
-                    
-                }
-                else if(textBox2.Text == null)
-                {
-                    label4.Text = "组名不能为空啊。。。";
+                    if (textBox1.Text == null) { label3.Text = "姓名不能为空啊。。。"; }
+                    else if (comboBox1.Text == null) { label4.Text = "组名不能为空啊。。。"; }
+                    else if (textBox2.Text == null) { label5.Text = "ID不能为空啊。。。"; }
                 }
 
             }
@@ -77,16 +82,7 @@ namespace Face
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(@"^[A-Za-z0-9]+$");
-            if (!reg.IsMatch(textBox1.Text))
-            {
-                isOrNot = false;
-            }
-            else
-            {
-                label3.Text = "";
-                isOrNot = true;
-            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -95,6 +91,11 @@ namespace Face
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
         {
 
         }

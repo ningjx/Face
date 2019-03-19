@@ -17,7 +17,7 @@ namespace Face
     public partial class Camera : Form
     {
         CameraProvider cameraProvider = new CameraProvider();
-        BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+        BaiduDataProvider baiduDataProvider;
         public Camera()
         {
             InitializeComponent();
@@ -89,9 +89,11 @@ namespace Face
             }
             else
             {
-                textBox1.Text = baiduDataProvider.NetFaceMatchData(pictureBox1.Image);
-                Dictionary<string, string> faceInfo = baiduDataProvider.NetRecognitionData(pictureBox1.Image);
-                pictureBox1.Image = baiduDataProvider.DrawSquar(pictureBox1.Image, faceInfo);
+                //需要异步
+                Task.Run(() => textBox1.Text = baiduDataProvider.NetFaceMatchData(pictureBox1.Image));
+                Task<Dictionary<string, string>> task = new Task<Dictionary<string, string>>(() => baiduDataProvider.NetRecognitionData(pictureBox1.Image));
+                pictureBox1.Image = baiduDataProvider.DrawSquar(pictureBox1.Image, task.Result);
+
             }
         }
 
@@ -138,10 +140,14 @@ namespace Face
         /// <param name="e"></param>
         private void button5_Click(object sender, EventArgs e)
         {
-            Dictionary<string, string> faceInfo = baiduDataProvider.NetRecognitionData(pictureBox1.Image);
-            pictureBox1.Image = baiduDataProvider.DrawSquar(pictureBox1.Image, faceInfo);
+            Task<Dictionary<string, string>> task = new Task<Dictionary<string, string>>(() => baiduDataProvider.NetRecognitionData(pictureBox1.Image));
+            pictureBox1.Image = baiduDataProvider.DrawSquar(pictureBox1.Image, task.Result);
 
         }
 
+        private void Camera_Load(object sender, EventArgs e)
+        {
+            baiduDataProvider = new BaiduDataProvider();
+        }
     }
 }

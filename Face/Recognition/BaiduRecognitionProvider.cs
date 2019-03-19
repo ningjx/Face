@@ -11,7 +11,7 @@ using IronPython.Runtime.Operations;
 
 namespace Face.Recognition
 {
-    class BaiduRecognitionProvider
+    public class BaiduRecognitionProvider
     {
         private readonly string APP_ID = "15757485";
         private readonly string API_KEY = "DbVT6z1gdKUk0NhyBZWIBd99";

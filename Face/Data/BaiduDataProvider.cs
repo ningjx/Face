@@ -25,11 +25,16 @@ namespace Face.Data
                 JToken infoArry = value["user_list"];
 
                 string faceToken = value["face_token"].ToString();
-                string name = infoArry[0]["user_id"].ToString();
+                string id = infoArry[0]["user_id"].ToString();
                 string group = infoArry[0]["group_id"].ToString();
                 string info = infoArry[0]["user_info"].ToString();
+                //info解析
+                string[] faceInfo = info.Split('`');
+
+
+
                 string score = infoArry[0]["score"].ToString();
-                string result = "姓名：" + name + "\r\n" + "组名：" + group + "\r\n" + "信息：" + info + "\r\n" + "匹配度：" + score + "\r\n" + "人脸标识：" + faceToken + "\r\n";
+                string result = "姓名：" + faceInfo[0] + "\r\n" + "ID：" + id + "\r\n" + "组名：" + group + "\r\n" + "信息：" + faceInfo[1] + "\r\n" + "匹配度：" + score + "\r\n" + "人脸标识：" + faceToken + "\r\n";
                 return result;
             }
             catch (Exception ex)
@@ -58,8 +63,8 @@ namespace Face.Data
 
                 Dictionary<string, string> result = new Dictionary<string, string>();
                 //人脸数量，现在只用1
-                result.Add("faceNum",value["face_num"].ToString());
-                
+                result.Add("faceNum", value["face_num"].ToString());
+
 
                 //人脸标识
                 result.Add("faceToken", infoArry[0]["face_token"].ToString());
@@ -85,7 +90,12 @@ namespace Face.Data
                 return result;
             }
         }
-
+        /// <summary>
+        /// 图片上圈人脸
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="faceInfo"></param>
+        /// <returns></returns>
         public Image DrawSquar(Image image, Dictionary<string, string> faceInfo)
         {
             //构造矩形框的参数
