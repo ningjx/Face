@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using FaceTests;
-using Face.Data;
 
 namespace Face.Data.Tests
 {
