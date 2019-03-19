@@ -38,6 +38,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -139,11 +140,20 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(262, 218);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(0, 12);
+            this.label2.TabIndex = 10;
+            // 
             // Camera
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button4);
@@ -175,5 +185,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label2;
     }
 }

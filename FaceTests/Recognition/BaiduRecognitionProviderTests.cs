@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using FaceTests;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Face.Recognition.Tests
 {
@@ -18,13 +18,23 @@ namespace Face.Recognition.Tests
         public void NetFaceRegisterTest()
         {
             Image image = Resource1.qq_pic_merged_1552621462658;
-            BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
             string id = "gongjiaxin";
             string name = "龚家新";
             string group = "UsualUser";
             string info = "老婆大人";
             string faceInfo = name + "`" + info;
-            var aaa = baiduRecognitionProvider.NetFaceRegister(image, group, id, faceInfo);
+            var c = 1;
+
+            Task<JObject> task = new Task<JObject>(
+                        () =>
+                        {
+                            BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+                            return baiduRecognitionProvider.NetFaceRegister(image, group, id, faceInfo);
+                        });
+            task.Start();
+            task.Wait();
+            c = 0;
+            var aaa = task.Result;
         }
     }
 }

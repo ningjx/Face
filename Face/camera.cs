@@ -12,12 +12,13 @@ using Face.CameraCoulm;
 using Face.Recognition;
 using Newtonsoft.Json.Linq;
 using Face.Data;
+
 namespace Face
 {
     public partial class Camera : Form
     {
         CameraProvider cameraProvider = new CameraProvider();
-        BaiduDataProvider baiduDataProvider;
+        
         public Camera()
         {
             InitializeComponent();
@@ -89,10 +90,23 @@ namespace Face
             }
             else
             {
+                Image image = pictureBox1.Image;
+                label2.Text = "正识别呢";
                 //需要异步
-                Task.Run(() => textBox1.Text = baiduDataProvider.NetFaceMatchData(pictureBox1.Image));
-                Task<Dictionary<string, string>> task = new Task<Dictionary<string, string>>(() => baiduDataProvider.NetRecognitionData(pictureBox1.Image));
-                pictureBox1.Image = baiduDataProvider.DrawSquar(pictureBox1.Image, task.Result);
+                Task<Tuple<Image,string>> task = new Task<Tuple<Image, string>>
+                (() =>
+                {
+                    BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                    string text = baiduDataProvider.NetFaceMatchData(image);
+                    Image imageDeal = baiduDataProvider.DrawSquar(image, baiduDataProvider.NetRecognitionData(image));
+                    Tuple<Image, string> tuple = new Tuple<Image, string>(imageDeal, text);
+                    return tuple;
+                });
+                task.Start();
+                task.Wait();
+                pictureBox1.Image = task.Result.Item1;
+                textBox1.Text = task.Result.Item2;
+                label2.Text = "";
 
             }
         }
@@ -140,14 +154,27 @@ namespace Face
         /// <param name="e"></param>
         private void button5_Click(object sender, EventArgs e)
         {
-            Task<Dictionary<string, string>> task = new Task<Dictionary<string, string>>(() => baiduDataProvider.NetRecognitionData(pictureBox1.Image));
-            pictureBox1.Image = baiduDataProvider.DrawSquar(pictureBox1.Image, task.Result);
+            Image image = pictureBox1.Image;
+            label2.Text = "检测中";
+            Task<Image> task= new Task<Image>(() =>
+            {
+                BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                return baiduDataProvider.DrawSquar(image, baiduDataProvider.NetRecognitionData(image));
+            });
+            task.Start();
+            task.Wait();
+            pictureBox1.Image = task.Result;
+            textBox1.Text = "";//以后加
 
+            label2.Text = "";
         }
 
         private void Camera_Load(object sender, EventArgs e)
         {
-            baiduDataProvider = new BaiduDataProvider();
+            Task.Run(()=> {
+                BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                baiduDataProvider.NetRecognitionData(Resource1.Image1);
+            });            
         }
     }
 }

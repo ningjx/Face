@@ -45,11 +45,18 @@ namespace Face
                     }
                     else
                     {
-                        BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+                        string group = comboBox1.Text;
+                        string id = textBox1.Text;
                         string faceInfo = textBox2.Text + "`" + textBox4.Text;
-                        Task<JObject> task = new Task<JObject>(()
-                            => baiduRecognitionProvider.NetFaceRegister(Image, comboBox1.Text, textBox1.Text, faceInfo));
-                        //var result = baiduRecognitionProvider.NetFaceRegister(Image, comboBox1.Text, textBox1.Text, faceInfo);
+                        button1.Text = "正在往里录";
+                        Task<JObject> task = new Task<JObject>(
+                        () =>
+                        {
+                            BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+                            return baiduRecognitionProvider.NetFaceRegister(Image, group, id, faceInfo);
+                        });
+                        task.Start();
+                        task.Wait();
                         if (task.Result != null)
                         {
                             button1.Text = "录进去了";
