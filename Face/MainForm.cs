@@ -45,6 +45,14 @@ namespace Face
 
         }
 
+
+
+        private void skinButton2_Click(object sender, EventArgs e)
+        {
+            FormTest formTest = new FormTest();
+            formTest.Show();
+        }
+
         //private void FrmMain_FormClosde(object sender, FormClosingEventArgs e)
 
         //{
