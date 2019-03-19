@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Face.Recognition;
 using Newtonsoft.Json.Linq;
 using CCWin;
+using Face.Data;
 
 namespace Face
 {
@@ -45,9 +46,8 @@ namespace Face
         {
             try
             {
-                if (skinTextBox2.Text != null && skinComboBox1.Text != null && skinTextBox1.Text != null)
+                if (skinTextBox2.Text != "" && skinComboBox1.Text != "" && skinTextBox1.Text != "")
                 {
-
                     System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(@"^[A-Za-z0-9]+$");
                     if (!reg.IsMatch(skinTextBox2.Text))
                     {
@@ -59,29 +59,36 @@ namespace Face
                         string id = skinTextBox2.Text;
                         string faceInfo = skinTextBox1.Text + "`" + skinTextBox3.Text;
                         //skinButton1.Text = "正在往里录";
-                        Task<JObject> task = new Task<JObject>(
+                        Task<Tuple<bool, string>> task = new Task<Tuple<bool, string>>(
                         () =>
                         {
-                            BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
-                            return baiduRecognitionProvider.NetFaceRegister(Image, group, id, faceInfo);
+                            BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                            Tuple<bool, string> tuple = baiduDataProvider.NetFaceRegisterData(Image, group, id,faceInfo);
+                            return tuple;
                         });
                         task.Start();
                         task.Wait();
                         if (task.Result != null)
                         {
-                            MessageBox.Show("录进去了");
-                            skinButton1.Enabled = false;
+                            if (task.Result.Item1)
+                            {
+                                MessageBox.Show("录进去了");
+                                skinButton1.Enabled = false;
+                            }
+                            else
+                            {
+                                MessageBox.Show(task.Result.Item2);
+                            }
+                            
                         }
                         else { MessageBox.Show("好像没录进去"); }
                     }
-
-
                 }
                 else
                 {
                     if (skinTextBox2.Text == null) { label3.Text = "姓名不能为空啊。。。"; }
-                    else if (skinComboBox1.Text == null) { label4.Text = "组名不能为空啊。。。"; }
-                    else if (skinTextBox1.Text == null) { label5.Text = "ID不能为空啊。。。"; }
+                    if (skinComboBox1.Text == null) { label4.Text = "组名不能为空啊。。。"; }
+                    if (skinTextBox1.Text == null) { label5.Text = "ID不能为空啊。。。"; }
                 }
 
             }

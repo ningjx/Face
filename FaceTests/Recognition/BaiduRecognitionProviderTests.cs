@@ -35,6 +35,13 @@ namespace Face.Recognition.Tests
             task.Wait();
             c = 0;
             var aaa = task.Result;
+            aaa.TryGetValue("error_code", out JToken token);
+            var ddd = token;
+            var eee = 11;
+
+            var bbb = token["error_code"].ToString();
+            var ccc = 000;
+
         }
     }
 }
