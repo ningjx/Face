@@ -44,9 +44,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(-1, -1);
+            this.pictureBox1.Location = new System.Drawing.Point(1, 33);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(599, 451);
+            this.pictureBox1.Size = new System.Drawing.Size(599, 415);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -54,7 +54,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(629, 363);
+            this.button1.Location = new System.Drawing.Point(624, 358);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -64,9 +64,9 @@
             // 
             // videoSourcePlayer1
             // 
-            this.videoSourcePlayer1.Location = new System.Drawing.Point(-1, -1);
+            this.videoSourcePlayer1.Location = new System.Drawing.Point(1, 33);
             this.videoSourcePlayer1.Name = "videoSourcePlayer1";
-            this.videoSourcePlayer1.Size = new System.Drawing.Size(599, 452);
+            this.videoSourcePlayer1.Size = new System.Drawing.Size(599, 416);
             this.videoSourcePlayer1.TabIndex = 2;
             this.videoSourcePlayer1.Text = "videoSourcePlayer1";
             this.videoSourcePlayer1.VideoSource = null;
@@ -75,7 +75,7 @@
             // Cameralist
             // 
             this.Cameralist.FormattingEnabled = true;
-            this.Cameralist.Location = new System.Drawing.Point(629, 331);
+            this.Cameralist.Location = new System.Drawing.Point(624, 326);
             this.Cameralist.Name = "Cameralist";
             this.Cameralist.Size = new System.Drawing.Size(121, 20);
             this.Cameralist.TabIndex = 3;
@@ -83,7 +83,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(629, 393);
+            this.button2.Location = new System.Drawing.Point(624, 388);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 4;
@@ -94,7 +94,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(627, 303);
+            this.label1.Location = new System.Drawing.Point(622, 298);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 5;
@@ -103,7 +103,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(629, 422);
+            this.button3.Location = new System.Drawing.Point(624, 417);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 6;
@@ -113,7 +113,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(710, 393);
+            this.button4.Location = new System.Drawing.Point(705, 388);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 7;
@@ -123,16 +123,16 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(604, 12);
+            this.textBox1.Location = new System.Drawing.Point(600, 33);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(184, 280);
+            this.textBox1.Size = new System.Drawing.Size(200, 257);
             this.textBox1.TabIndex = 8;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(710, 362);
+            this.button5.Location = new System.Drawing.Point(705, 357);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 9;

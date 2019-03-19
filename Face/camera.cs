@@ -12,10 +12,11 @@ using Face.CameraCoulm;
 using Face.Recognition;
 using Newtonsoft.Json.Linq;
 using Face.Data;
+using CCWin;
 
 namespace Face
 {
-    public partial class Camera : Form
+    public partial class Camera : Skin_Mac
     {
         CameraProvider cameraProvider = new CameraProvider();
         

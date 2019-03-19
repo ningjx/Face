@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CCWin;
 
 namespace Face
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Skin_Mac
     {
         public MainForm()
         {
@@ -37,6 +38,11 @@ namespace Face
         private void button4_Click(object sender, EventArgs e)
         {
             System.Environment.Exit(0);
+        }
+
+        private void skinButton1_Click(object sender, EventArgs e)
+        {
+
         }
 
         //private void FrmMain_FormClosde(object sender, FormClosingEventArgs e)

@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Face.Recognition;
 using Newtonsoft.Json.Linq;
+using CCWin;
 
 namespace Face
 {
-    public partial class Register : Form
+    public partial class Register : Skin_Mac
     {
         public Register()
         {
