@@ -12,56 +12,40 @@ using Face.CameraCoulm;
 using Face.Recognition;
 using Newtonsoft.Json.Linq;
 using Face.Data;
+using CCWin;
 
 namespace Face
 {
-    public partial class Camera : Form
+    public partial class Camera : Skin_Mac
     {
         CameraProvider cameraProvider = new CameraProvider();
-        
         public Camera()
         {
             InitializeComponent();
             List<string> camList = cameraProvider.GetCameraEquipment();
-            foreach (string name in camList)
+            if (camList.Count != 0)
             {
-                Cameralist.Items.Add(name);
-            }
-            Cameralist.Text = camList[0];
-
-        }
-
-        /// <summary>
-        /// 拍照图片显示
-        /// </summary>
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// 拍照按钮
-        /// </summary>
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            if (button1.Text == "拍照")
-            {
-                Bitmap bitmap = videoSourcePlayer1.GetCurrentVideoFrame();
-                pictureBox1.Image = bitmap;
-                this.videoSourcePlayer1.Visible = false;
-                this.pictureBox1.Visible = true;
-                videoSourcePlayer1.Stop();
-                button1.Text = "重新拍照";
+                foreach (string name in camList)
+                {
+                    Cameralist.Items.Add(name);
+                }
+                Cameralist.Text = camList[0];
             }
             else
             {
-                videoSourcePlayer1.Start();
-                pictureBox1.Image = null;
-                this.videoSourcePlayer1.Visible = true;
-                this.pictureBox1.Visible = false;
-                button1.Text = "拍照";
+                skinButton1.Enabled = false;
+                skinButton2.Enabled = false;
+                skinButton3.Enabled = false;
+                skinButton4.Enabled = false;
+                Cameralist.Text = "未检测到设备";
             }
+            
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
 
         /// <summary>
@@ -79,21 +63,85 @@ namespace Face
 
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Camera_Load(object sender, EventArgs e)
+        {
+            Task.Run(()=> {
+                BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                baiduDataProvider.NetRecognitionData(Resource1.Image1);
+            });            
+        }
+
         /// <summary>
-        /// 进行人脸识别匹配
+        /// 拍照按钮
         /// </summary>
-        private void button2_Click_1(object sender, EventArgs e)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void skinButton1_Click(object sender, EventArgs e)
+        {
+
+            if (skinButton1.Text == "拍照")
+            {
+                Bitmap bitmap = videoSourcePlayer1.GetCurrentVideoFrame();
+                pictureBox1.Image = bitmap;
+                this.videoSourcePlayer1.Visible = false;
+                this.pictureBox1.Visible = true;
+                videoSourcePlayer1.Stop();
+                skinButton1.Text = "重新拍照";
+            }
+            else
+            {
+                videoSourcePlayer1.Start();
+                pictureBox1.Image = null;
+                this.videoSourcePlayer1.Visible = true;
+                this.pictureBox1.Visible = false;
+                skinButton1.Text = "拍照";
+            }
+        }
+
+        /// <summary>
+        /// 检测
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void skinButton2_Click(object sender, EventArgs e)
+        {
+            Image image = pictureBox1.Image;
+            label2.Text = "检测中";
+            Task<Image> task = new Task<Image>(() =>
+            {
+                BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                return baiduDataProvider.DrawSquar(image, baiduDataProvider.NetRecognitionData(image));
+            });
+            task.Start();
+            task.Wait();
+            pictureBox1.Image = task.Result;
+            skinTextBox1.Text = "";//以后加
+
+            label2.Text = "";
+        }
+
+        /// <summary>
+        /// 识别
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void skinButton3_Click(object sender, EventArgs e)
         {
             if (pictureBox1.Image == null)
             {
-                textBox1.Text = "先拍一张照片啊";
+                skinTextBox1.Text = "先拍一张照片啊";
             }
             else
             {
                 Image image = pictureBox1.Image;
                 label2.Text = "正识别呢";
                 //需要异步
-                Task<Tuple<Image,string>> task = new Task<Tuple<Image, string>>
+                Task<Tuple<Image, string>> task = new Task<Tuple<Image, string>>
                 (() =>
                 {
                     BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
@@ -105,33 +153,22 @@ namespace Face
                 task.Start();
                 task.Wait();
                 pictureBox1.Image = task.Result.Item1;
-                textBox1.Text = task.Result.Item2;
+                skinTextBox1.Text = task.Result.Item2;
                 label2.Text = "";
 
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         /// <summary>
-        /// 返回到主菜单，关闭摄像头
+        /// 录入
         /// </summary>
-        private void button3_Click(object sender, EventArgs e)
-        {
-            videoSourcePlayer1.Stop();
-            MainForm mainForm = new MainForm();
-            mainForm.Show();
-            this.Close();
-        }
-
-        private void button4_Click(object sender, EventArgs e)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void skinButton4_Click(object sender, EventArgs e)
         {
             if (pictureBox1.Image == null)
             {
-                textBox1.Text = "先拍一张照片啊";
+                skinTextBox1.Text = "先拍一张照片啊";
             }
             else
             {
@@ -140,41 +177,19 @@ namespace Face
                 register.Show();
 
             }
-
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
         /// <summary>
-        /// 人脸检测
+        /// 返回
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button5_Click(object sender, EventArgs e)
+        private void skinButton5_Click(object sender, EventArgs e)
         {
-            Image image = pictureBox1.Image;
-            label2.Text = "检测中";
-            Task<Image> task= new Task<Image>(() =>
-            {
-                BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
-                return baiduDataProvider.DrawSquar(image, baiduDataProvider.NetRecognitionData(image));
-            });
-            task.Start();
-            task.Wait();
-            pictureBox1.Image = task.Result;
-            textBox1.Text = "";//以后加
-
-            label2.Text = "";
-        }
-
-        private void Camera_Load(object sender, EventArgs e)
-        {
-            Task.Run(()=> {
-                BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
-                baiduDataProvider.NetRecognitionData(Resource1.Image1);
-            });            
+            videoSourcePlayer1.Stop();
+            MainForm mainForm = new MainForm();
+            mainForm.Show();
+            this.Close();
         }
     }
 }

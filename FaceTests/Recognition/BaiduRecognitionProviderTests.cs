@@ -23,8 +23,6 @@ namespace Face.Recognition.Tests
             string group = "UsualUser";
             string info = "老婆大人";
             string faceInfo = name + "`" + info;
-            var c = 1;
-
             Task<JObject> task = new Task<JObject>(
                         () =>
                         {
@@ -33,7 +31,6 @@ namespace Face.Recognition.Tests
                         });
             task.Start();
             task.Wait();
-            c = 0;
             var aaa = task.Result;
         }
     }

@@ -128,5 +128,31 @@ namespace Face.Data
             graphics.Dispose();
             return image;
         }
+
+        public Tuple<bool,string> NetFaceRegisterData(Image image, string groupId, string userId, string info)
+        {
+            try
+            {
+                BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+                JObject jsonData = baiduRecognitionProvider.NetFaceRegister(image, groupId, userId, info);
+                jsonData.TryGetValue("error_code", out JToken errorCodeToken);
+                jsonData.TryGetValue("error_msg", out JToken errorMessageToken);
+                bool mark = true;
+                string message = errorMessageToken.ToString();
+                //int errorCode = int.Parse(errorCodeToken.ToString());
+                string errorCode = errorCodeToken.ToString();
+                switch (errorCode)
+                {
+                    case "223105":
+                        mark = false;
+                        break;
+                    default:
+                        mark = true;
+                        break;
+                }
+                return new Tuple<bool, string>(mark, message);
+            }
+            catch(Exception ex) { return new Tuple<bool, string>(false, ex.ToString()); }
+        }
     }
 }
