@@ -19,16 +19,27 @@ namespace Face
     public partial class Camera : Skin_Mac
     {
         CameraProvider cameraProvider = new CameraProvider();
-        
         public Camera()
         {
             InitializeComponent();
             List<string> camList = cameraProvider.GetCameraEquipment();
-            foreach (string name in camList)
+            if (camList.Count != 0)
             {
-                Cameralist.Items.Add(name);
+                foreach (string name in camList)
+                {
+                    Cameralist.Items.Add(name);
+                }
+                Cameralist.Text = camList[0];
             }
-            Cameralist.Text = camList[0];
+            else
+            {
+                skinButton1.Enabled = false;
+                skinButton2.Enabled = false;
+                skinButton3.Enabled = false;
+                skinButton4.Enabled = false;
+                Cameralist.Text = "未检测到设备";
+            }
+            
 
         }
 
