@@ -14,9 +14,11 @@ namespace Face.Data
 {
     public class BaiduDataProvider
     {
-        ///<summry>
-        ///根据百度数据库查找人脸
-        ///</summry>
+        /// <summary>
+        /// 根据百度数据库查找人脸
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
         public string NetFaceMatchData(Image image)
         {
             try

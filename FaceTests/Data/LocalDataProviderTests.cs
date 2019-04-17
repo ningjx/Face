@@ -20,7 +20,7 @@ namespace Face.Data.Tests
         {
             Image image = Resource1.qq_pic_merged_1552621462658;
             LocalDataProvider localDataProvider = new LocalDataProvider();
-            Dictionary<string, string> info = new Dictionary<string, string> { { "性别", "女" }, { "年龄", "19" } };
+            JObject info = new JObject { { "性别", "女" }, { "年龄", "19" } };
             var a = localDataProvider.LocalFaceRegisterData(image, "测试姓名2", info);
         }
     }
