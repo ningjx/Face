@@ -8,7 +8,7 @@ using Baidu;
 
 namespace Face.Recognition
 {
-    class RecognitionProvider
+    class LocalRecognitionProvider
     {
 
 

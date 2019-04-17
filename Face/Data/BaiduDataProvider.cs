@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 using System.Drawing;
 using Face.Recognition;
 using Newtonsoft.Json;
+using Face.Data.MongoDB;
+using Microsoft.International.Converters.PinYinConverter;
 
 namespace Face.Data
 {
     public class BaiduDataProvider
     {
-        ///<summry>人脸识别</summry>
+        ///<summry>
+        ///根据百度数据库查找人脸
+        ///</summry>
         public string NetFaceMatchData(Image image)
         {
             try
@@ -23,7 +27,6 @@ namespace Face.Data
                 JObject jsonData = baiduRecognitionProvider.NetFaceMatch(image);
                 jsonData.TryGetValue("result", out JToken value);
                 JToken infoArry = value["user_list"];
-
                 string faceToken = value["face_token"].ToString();
                 string id = infoArry[0]["user_id"].ToString();
                 string group = infoArry[0]["group_id"].ToString();
@@ -34,7 +37,7 @@ namespace Face.Data
 
 
                 string score = infoArry[0]["score"].ToString();
-                string result = "姓名：" + faceInfo[0] + "\r\n" + "ID：" + id + "\r\n" + "组名：" + group + "\r\n" + "信息：" + faceInfo[1] + "\r\n" + "匹配度：" + score + "\r\n" + "人脸标识：" + faceToken + "\r\n";
+                string result = $"姓名：{faceInfo[0]}\r\nID：{id}\r\n组名：{group}\r\n信息：{faceInfo[1] }\r\n匹配度：{score}\r\n人脸标识：{faceToken}\r\n";
                 return result;
             }
             catch (Exception ex)
@@ -45,7 +48,7 @@ namespace Face.Data
         }
 
         /// <summary>
-        /// 人脸检测
+        /// 人脸识别
         /// </summary>
         /// <param name="image"></param>
         /// <returns></returns>
@@ -75,11 +78,12 @@ namespace Face.Data
                 result.Add("width", location["width"].ToString());
                 result.Add("height", location["height"].ToString());
                 //年龄
-                //result.Add("age", infoArry[0]["age"].ToString());
+                result.Add("age", infoArry[0]["age"].ToString());
                 //美丑
-                //result.Add("beauty", infoArry[0]["beauty"].ToString());
+                result.Add("beauty", infoArry[0]["beauty"].ToString());
                 //性别
-                //result.Add("gender", infoArry[0]["beauty"]["gender"].ToString());
+                //JToken gender = infoArry[0]["gender"];
+                result.Add("gender", infoArry[0]["gender"]["type"].ToString());
                 return result;
             }
             catch (Exception ex)
@@ -96,8 +100,9 @@ namespace Face.Data
         /// <param name="image"></param>
         /// <param name="faceInfo"></param>
         /// <returns></returns>
-        public Image DrawSquar(Image image, Dictionary<string, string> faceInfo)
+        public Image DrawSquar(Image image)
         {
+            Dictionary<string, string> faceInfo = NetRecognitionData(image);
             //构造矩形框的参数
             List<int> location = new List<int>();
             faceInfo.TryGetValue("left", out string left);
@@ -129,7 +134,15 @@ namespace Face.Data
             return image;
         }
 
-        public Tuple<bool,string> NetFaceRegisterData(Image image, string groupId, string userId, string info)
+        /// <summary>
+        /// 网络保存人脸
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="groupId"></param>
+        /// <param name="userId"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public Tuple<bool, string> NetFaceRegisterData(Image image, string groupId, string userId, string info)
         {
             try
             {
@@ -152,7 +165,111 @@ namespace Face.Data
                 }
                 return new Tuple<bool, string>(mark, message);
             }
-            catch(Exception ex) { return new Tuple<bool, string>(false, ex.ToString()); }
+            catch (Exception ex) { return new Tuple<bool, string>(false, ex.ToString()); }
+        }
+
+        public Tuple<bool, string> NetFaceRegisterData(Image image, string userName, JObject info)
+        {
+            try
+            {
+                BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+                string groupId = "UsualUser";
+                string userId = ChineseToPinyin(userName);
+                info.Add("UserName", userName);
+                JObject jsonData = baiduRecognitionProvider.NetFaceRegister(image, groupId, userId, info.ToString());
+                jsonData.TryGetValue("error_code", out JToken errorCodeToken);
+                jsonData.TryGetValue("error_msg", out JToken errorMessageToken);
+                bool mark = true;
+                string message = errorMessageToken.ToString();
+                //int errorCode = int.Parse(errorCodeToken.ToString());
+                string errorCode = errorCodeToken.ToString();
+                switch (errorCode)
+                {
+                    case "223105":
+                        mark = false;
+                        break;
+                    default:
+                        mark = true;
+                        break;
+                }
+                return new Tuple<bool, string>(mark, message);
+            }
+            catch (Exception ex) { return new Tuple<bool, string>(false, ex.ToString()); }
+
+        }
+
+        public string NetRecognitionDataStr(Image image)
+        {
+            try
+            {
+                BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+
+                //Task<JObject> @object = new Task<JObject>(baiduRecognitionProvider.NetFaceMatch(image) );
+                JObject jsonData = baiduRecognitionProvider.NetRecognition(image);
+                jsonData.TryGetValue("result", out JToken value);
+                JToken infoArry = value["face_list"];
+
+                string age = infoArry[0]["age"].ToString();
+                string beauty = infoArry[0]["age"].ToString();
+                string gender = infoArry[0]["gender"]["type"].ToString();
+                string result = $"年龄：{age}\r\n颜值：{beauty}\r\n性别：{gender}\r\n";
+                return result;
+            }
+            catch (Exception ex)
+            {
+                string result = "检测出错{" + ex + "}";
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 两张人脸对比
+        /// </summary>
+        /// <param name="sourceImage">原来的脸</param>
+        /// <param name="matchImage">需要对比的脸</param>
+        /// <returns></returns>
+        public Tuple<bool, bool, string> NetTowFaceMatchData(Image sourceImage, Image matchImage)
+        {
+            try
+            {
+                BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+                JObject jsonData = baiduRecognitionProvider.NetTwoFaceMatch(sourceImage, matchImage);
+                jsonData.TryGetValue("error_code", out JToken errorCodeToken);
+                jsonData.TryGetValue("error_msg", out JToken errorMessageToken);
+                jsonData.TryGetValue("result", out JToken value);
+                float score = (float)value["score"];
+                bool sucess = false;
+                bool match = false;
+                if (80 < score)
+                    match = true;
+                if (errorCodeToken.ToString() == "0")
+                    sucess = true;
+
+                return new Tuple<bool, bool, string>(match, sucess, errorMessageToken.ToString());
+            }
+            catch (Exception e)
+            {
+                return new Tuple<bool, bool, string>(false, false, e.ToString());
+            }
+        }
+
+        private string ChineseToPinyin(string chinese)
+        {
+            string result = string.Empty;
+            foreach (char item in chinese)
+            {
+                try
+                {
+                    ChineseChar chineseChar = new ChineseChar(item);
+                    string t = chineseChar.Pinyins[0].ToString();
+                    result += t.Substring(0, t.Length - 1);
+                }
+                catch
+                {
+                    result += item.ToString();
+                }
+            }
+            return result;
         }
     }
 }

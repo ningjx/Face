@@ -23,6 +23,7 @@ namespace Face
         {
             InitializeComponent();
             List<string> camList = cameraProvider.GetCameraEquipment();
+            //校验有没有摄像头
             if (camList.Count != 0)
             {
                 foreach (string name in camList)
@@ -39,7 +40,7 @@ namespace Face
                 skinButton4.Enabled = false;
                 Cameralist.Text = "未检测到设备";
             }
-            
+
 
         }
 
@@ -70,10 +71,11 @@ namespace Face
 
         private void Camera_Load(object sender, EventArgs e)
         {
-            Task.Run(()=> {
+            Task.Run(() =>
+            {
                 BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
                 baiduDataProvider.NetRecognitionData(Resource1.Image1);
-            });            
+            });
         }
 
         /// <summary>
@@ -112,16 +114,16 @@ namespace Face
         {
             Image image = pictureBox1.Image;
             label2.Text = "检测中";
-            Task<Image> task = new Task<Image>(() =>
+            Task<Tuple<Image, string>> task = new Task<Tuple<Image, string>>(() =>
             {
                 BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
-                return baiduDataProvider.DrawSquar(image, baiduDataProvider.NetRecognitionData(image));
+                Tuple<Image, string> data = new Tuple<Image, string>(baiduDataProvider.DrawSquar(image), baiduDataProvider.NetRecognitionDataStr(image)) { };
+                return data;
             });
             task.Start();
             task.Wait();
-            pictureBox1.Image = task.Result;
-            skinTextBox1.Text = "";//以后加
-
+            pictureBox1.Image = task.Result.Item1;
+            skinTextBox1.Text = task.Result.Item2;
             label2.Text = "";
         }
 
@@ -146,7 +148,7 @@ namespace Face
                 {
                     BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
                     string text = baiduDataProvider.NetFaceMatchData(image);
-                    Image imageDeal = baiduDataProvider.DrawSquar(image, baiduDataProvider.NetRecognitionData(image));
+                    Image imageDeal = baiduDataProvider.DrawSquar(image);
                     Tuple<Image, string> tuple = new Tuple<Image, string>(imageDeal, text);
                     return tuple;
                 });

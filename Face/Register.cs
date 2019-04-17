@@ -46,49 +46,50 @@ namespace Face
         {
             try
             {
-                if (skinTextBox2.Text != "" && skinComboBox1.Text != "" && skinTextBox1.Text != "")
+                if (skinTextBox1.Text != "")
                 {
-                    System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(@"^[A-Za-z0-9]+$");
-                    if (!reg.IsMatch(skinTextBox2.Text))
+                    string userName = skinTextBox1.Text;
+                    string info = skinTextBox3.Text;
+                    JObject faceInfo = new JObject { { "value", info } };
+                    //skinButton1.Text = "正在往里录";
+                    Task<Tuple<bool, string>> task = new Task<Tuple<bool, string>>(
+                    () =>
                     {
-                        label3.Text = "只能输字母数字";
-                    }
-                    else
-                    {
-                        string group = skinComboBox1.Text;
-                        string id = skinTextBox2.Text;
-                        string faceInfo = skinTextBox1.Text + "`" + skinTextBox3.Text;
-                        //skinButton1.Text = "正在往里录";
-                        Task<Tuple<bool, string>> task = new Task<Tuple<bool, string>>(
-                        () =>
-                        {
-                            BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
-                            Tuple<bool, string> tuple = baiduDataProvider.NetFaceRegisterData(Image, group, id,faceInfo);
+                        BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                        LocalDataProvider localDataProvider = new LocalDataProvider();
+                        Tuple<bool, string> tuple = baiduDataProvider.NetFaceRegisterData(Image, userName, faceInfo);
+                        Tuple<bool, string> localTuple = localDataProvider.LocalFaceRegisterData(Image, userName, faceInfo);
+                        if (tuple.Item1 && localTuple.Item1)
                             return tuple;
-                        });
-                        task.Start();
-                        task.Wait();
-                        if (task.Result != null)
+                        else if (!localTuple.Item1)
+                            return localTuple;
+                        else if (!tuple.Item1)
+                            return tuple;
+                        else
+                            return new Tuple<bool, string>(false, "本地保存出错，网络保存出错");
+
+                    });
+                    task.Start();
+                    task.Wait();
+                    if (task.Result != null)
+                    {
+                        if (task.Result.Item1)
                         {
-                            if (task.Result.Item1)
-                            {
-                                MessageBox.Show("录进去了");
-                                skinButton1.Enabled = false;
-                            }
-                            else
-                            {
-                                MessageBox.Show(task.Result.Item2);
-                            }
-                            
+                            MessageBox.Show("录进去了");
+                            skinButton1.Enabled = false;
                         }
-                        else { MessageBox.Show("好像没录进去"); }
+                        else
+                        {
+                            MessageBox.Show(task.Result.Item2);
+                        }
+
                     }
+                    else { MessageBox.Show("好像没录进去"); }
+
                 }
                 else
                 {
-                    if (skinTextBox2.Text == null) { label3.Text = "姓名不能为空啊。。。"; }
-                    if (skinComboBox1.Text == null) { label4.Text = "组名不能为空啊。。。"; }
-                    if (skinTextBox1.Text == null) { label5.Text = "ID不能为空啊。。。"; }
+                    if (skinTextBox1.Text == null) { label3.Text = "姓名不能为空啊。。。"; }
                 }
 
             }

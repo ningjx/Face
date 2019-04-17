@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using FaceTests;
 using Newtonsoft.Json.Linq;
+using FaceTests.Resources;
 
 namespace Face.Recognition.Tests
 {
@@ -32,6 +33,23 @@ namespace Face.Recognition.Tests
             task.Start();
             task.Wait();
             var aaa = task.Result;
+        }
+
+        [TestMethod()]
+        public void NetRecognitionTest()
+        {
+            Image image = Resource1.qq_pic_merged_1552621462658;
+            BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+            var data = baiduRecognitionProvider.NetRecognition(image);
+        }
+
+        [TestMethod()]
+        public void NetTwoFaceMatchTest()
+        {
+            Image image1 = Resource1.qq_pic_merged_1552621462658;
+            Image image2 = Resource1.Screenshot_2018_10_25_14_00_18_951_com_tencent_mo;
+            BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+            var data = baiduRecognitionProvider.NetTwoFaceMatch(image1, image2);
         }
     }
 }

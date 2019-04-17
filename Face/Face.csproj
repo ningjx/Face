@@ -123,8 +123,14 @@
     <Reference Include="AipSdk, Version=3.6.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Baidu.AI.3.6.6\lib\net45\AipSdk.dll</HintPath>
     </Reference>
+    <Reference Include="ChnCharInfo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=18f031bd02e5e291, processorArchitecture=MSIL">
+      <HintPath>..\packages\WfyExpress.Depends.ChnCharInfo.1.0.0\lib\ChnCharInfo.dll</HintPath>
+    </Reference>
     <Reference Include="CSkin">
       <HintPath>..\Dll\CSkin.dll</HintPath>
+    </Reference>
+    <Reference Include="DnsClient, Version=1.2.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.2.0\lib\net45\DnsClient.dll</HintPath>
     </Reference>
     <Reference Include="IronPython, Version=2.7.9.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <HintPath>..\packages\IronPython.2.7.9\lib\net45\IronPython.dll</HintPath>
@@ -146,6 +152,15 @@
     </Reference>
     <Reference Include="Microsoft.Scripting.Metadata, Version=1.2.2.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamicLanguageRuntime.1.2.2\lib\net45\Microsoft.Scripting.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.8.0\lib\net452\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.8.0\lib\net452\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.8.0\lib\net452\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -172,6 +187,9 @@
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
@@ -208,6 +226,10 @@
     <Compile Include="CameraCoulm\CameraProvider.cs" />
     <Compile Include="Data\BaiduDataProvider.cs" />
     <Compile Include="Data\BaiduDataSource.cs" />
+    <Compile Include="Data\LocalDataProvider.cs" />
+    <Compile Include="Data\MongoDB\DBData.cs" />
+    <Compile Include="Data\MongoDB\DBHelper.cs" />
+    <Compile Include="Data\Redis\SaveFace.cs" />
     <Compile Include="FormTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,7 +248,7 @@
     <Compile Include="Data\Redis\RedisInformation.cs" />
     <Compile Include="Recognition\BaiduKey.cs" />
     <Compile Include="Recognition\BaiduRecognitionProvider.cs" />
-    <Compile Include="Recognition\RecognitionProvider.cs" />
+    <Compile Include="Recognition\LocalRecognitionProvider.cs" />
     <Compile Include="Register.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,6 +259,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SearchByName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchByName.Designer.cs">
+      <DependentUpon>SearchByName.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Camera.resx">
       <DependentUpon>Camera.cs</DependentUpon>
@@ -262,6 +290,9 @@
     <EmbeddedResource Include="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchByName.resx">
+      <DependentUpon>SearchByName.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Face_TemporaryKey.pfx" />
     <None Include="packages.config" />

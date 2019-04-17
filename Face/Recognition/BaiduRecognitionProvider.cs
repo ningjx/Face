@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using IronPython.Runtime.Operations;
+using Face.Data.MongoDB;
 
 namespace Face.Recognition
 {
@@ -17,6 +18,11 @@ namespace Face.Recognition
         private readonly string API_KEY = "DbVT6z1gdKUk0NhyBZWIBd99";
         private readonly string SECRET_KEY = "6EA1pNWcxlj3qUmy8uZ2DhQ1jO8OdC0G";
 
+        /// <summary>
+        /// 人脸识别
+        /// </summary>
+        /// <param name="image">人脸图片</param>
+        /// <returns></returns>
         public JObject NetRecognition(Image image)
         {
 
@@ -42,7 +48,7 @@ namespace Face.Recognition
                                 {"max_face_num", 1},
                                 {"face_type", "LIVE"}
                 };
-                JObject result = client.Detect(base64, imageType);
+                JObject result = client.Detect(base64, imageType, options);
                 return result;
             }
             catch (Exception ex)
@@ -70,18 +76,15 @@ namespace Face.Recognition
                 };
 
                 //图片转为Base64
-                Bitmap bmp = new Bitmap(image);
-                MemoryStream ms = new MemoryStream();
-                bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                byte[] arr = new byte[ms.Length]; ms.Position = 0;
-                ms.Read(arr, 0, (int)ms.Length); ms.Close();
-                var base64 = Convert.ToBase64String(arr);
+                string base64 = ImageToBase64(image);
                 string imageType = "BASE64";
-                var options = new Dictionary<string, object>{
-        {"user_info", info},
-        {"quality_control", "NORMAL"},
-        {"liveness_control", "NONE"}
-    };
+
+                var options = new Dictionary<string, object>
+                {
+                        {"user_info", info},
+                        {"quality_control", "NORMAL"},
+                        {"liveness_control", "NONE"}
+                };
                 JObject result = client.UserAdd(base64, imageType, groupId, userId, options);
                 return result;
             }
@@ -92,6 +95,7 @@ namespace Face.Recognition
             }
 
         }
+
 
         /// <summary>
         /// 人脸匹配
@@ -108,12 +112,7 @@ namespace Face.Recognition
                 };
 
                 //图片转为Base64
-                Bitmap bmp = new Bitmap(image);
-                MemoryStream ms = new MemoryStream();
-                bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                byte[] arr = new byte[ms.Length]; ms.Position = 0;
-                ms.Read(arr, 0, (int)ms.Length); ms.Close();
-                var base64 = Convert.ToBase64String(arr);
+                string base64 = ImageToBase64(image);
 
                 string imageType = "BASE64";
                 List<string> groupList = new List<string>();
@@ -132,5 +131,65 @@ namespace Face.Recognition
             }
         }
 
+
+        public JObject NetGetUserInfo(string userName)
+        {
+            return new JObject();
+        }
+
+        public JObject NetTwoFaceMatch(Image sourceImage, Image matchImage)
+        {
+            try
+            {
+                var client = new Baidu.Aip.Face.Face(API_KEY, SECRET_KEY)
+                {
+                    Timeout = 60000  // 修改超时时间
+                };
+
+                string sourceData = ImageToBase64(sourceImage);
+                string matchData = ImageToBase64(matchImage);
+
+                JArray faces = new JArray{
+                    new JObject
+                    {
+                        {"image", sourceData},
+                        {"image_type", "BASE64"},
+                        {"face_type", "LIVE"},
+                        {"quality_control", "LOW"},
+                        {"liveness_control", "NONE"},
+                    },
+                    new JObject
+                    {
+                        {"image", matchData},
+                        {"image_type", "BASE64"},
+                        {"face_type", "LIVE"},
+                        {"quality_control", "LOW"},
+                        {"liveness_control", "NONE"},
+                    }
+                };
+
+                JObject result = client.Match(faces);
+                return result;
+            }
+            catch (Exception e)
+            {
+                return new JObject {
+                    {"error_code",1 },
+                    {"error_msg",e.ToString() }
+                };
+            }
+        }
+
+        private string ImageToBase64(Image image)
+        {
+            //图片转为Base64
+            Bitmap bmp = new Bitmap(image);
+            MemoryStream ms = new MemoryStream();
+            bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            byte[] arr = new byte[ms.Length]; ms.Position = 0;
+            ms.Read(arr, 0, (int)ms.Length); ms.Close();
+            string base64 = Convert.ToBase64String(arr);
+            return base64;
+        }
     }
 }

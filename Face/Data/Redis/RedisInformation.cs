@@ -13,12 +13,15 @@ namespace Face.Data.Redis
             //string host = "localhost";
             //int port = 6379;
             RedisConfig redisConfig = new RedisConfig();
+            RedisInformation redisInformation = new RedisInformation();
+            redisInformation. SetRedisConfig();
             RedisClient redisClient = new RedisClient(redisConfig.Host, redisConfig.Port);
             return redisClient;
         }
         public bool SetRedisConfig()
         {
-            string host = "localhost";int port = 6379;
+            string host = "localhost";
+            int port = 6379;
             try
             {
                 RedisConfig redisConfig = new RedisConfig();
