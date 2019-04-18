@@ -20,10 +20,8 @@ namespace Face.Data
         /// 本地保存人脸
         /// </summary>
         /// <param name="image"></param>
-        /// <param name="groupId"></param>
-        /// <param name="userId"></param>
+        /// <param name="userName"></param>
         /// <param name="info"></param>
-        /// <param name="local"></param>
         /// <returns></returns>
         public Tuple<bool, string> LocalFaceRegisterData(Image image, string userName, JObject info)
         {
