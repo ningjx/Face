@@ -19,6 +19,7 @@ namespace Face
     public partial class Camera : Skin_Mac
     {
         CameraProvider cameraProvider = new CameraProvider();
+        bool ifPhoto = false;
         public Camera()
         {
             InitializeComponent();
@@ -40,7 +41,6 @@ namespace Face
                 skinButton4.Enabled = false;
                 Cameralist.Text = "未检测到设备";
             }
-
 
         }
 
@@ -88,12 +88,14 @@ namespace Face
 
             if (skinButton1.Text == "拍照")
             {
+                label2.Text = string.Empty;
                 Bitmap bitmap = videoSourcePlayer1.GetCurrentVideoFrame();
                 pictureBox1.Image = bitmap;
                 this.videoSourcePlayer1.Visible = false;
                 this.pictureBox1.Visible = true;
                 videoSourcePlayer1.Stop();
                 skinButton1.Text = "重新拍照";
+                ifPhoto = true;
             }
             else
             {
@@ -102,6 +104,8 @@ namespace Face
                 this.videoSourcePlayer1.Visible = true;
                 this.pictureBox1.Visible = false;
                 skinButton1.Text = "拍照";
+                ifPhoto = false;
+                skinTextBox1.Text = string.Empty;
             }
         }
 
@@ -112,19 +116,24 @@ namespace Face
         /// <param name="e"></param>
         private void skinButton2_Click(object sender, EventArgs e)
         {
-            Image image = pictureBox1.Image;
-            label2.Text = "检测中";
-            Task<Tuple<Image, string>> task = new Task<Tuple<Image, string>>(() =>
+            if (ifPhoto)
             {
-                BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
-                Tuple<Image, string> data = new Tuple<Image, string>(baiduDataProvider.DrawSquar(image), baiduDataProvider.NetRecognitionDataStr(image)) { };
-                return data;
-            });
-            task.Start();
-            task.Wait();
-            pictureBox1.Image = task.Result.Item1;
-            skinTextBox1.Text = task.Result.Item2;
-            label2.Text = "";
+                Image image = pictureBox1.Image;
+                label2.Text = "检测中";
+                Task<Tuple<Image, string>> task = new Task<Tuple<Image, string>>(() =>
+                {
+                    BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                    Tuple<Image, string> data = new Tuple<Image, string>(baiduDataProvider.DrawSquar(image), baiduDataProvider.NetRecognitionDataStr(image)) { };
+                    return data;
+                });
+                task.Start();
+                task.Wait();
+                pictureBox1.Image = task.Result.Item1;
+                skinTextBox1.Text = task.Result.Item2;
+                label2.Text = "";
+            }
+            else
+                skinTextBox1.Text = "先点一下拍照按钮";           
         }
 
         /// <summary>
@@ -136,7 +145,7 @@ namespace Face
         {
             if (pictureBox1.Image == null)
             {
-                skinTextBox1.Text = "先拍一张照片啊";
+                skinTextBox1.Text = "先点一下拍照按钮";
             }
             else
             {
@@ -170,7 +179,7 @@ namespace Face
         {
             if (pictureBox1.Image == null)
             {
-                skinTextBox1.Text = "先拍一张照片啊";
+                skinTextBox1.Text = "先点一下拍照按钮";
             }
             else
             {

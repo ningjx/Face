@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28809.33
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Face", "Face\Face.csproj", "{FDE15213-D48A-451C-A916-F944EA6D66B5}"
 EndProject
@@ -27,6 +27,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Redis", "Redis", "{39DBCDC2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceTests", "FaceTests\FaceTests.csproj", "{7BE80A68-082E-4B90-88B7-FE8FA249D5D7}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonFace", "PythonFace\PythonFace.pyproj", "{BD73A1AC-8BFC-4053-BFCC-0AFDE5E6FC4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceRec", "FaceRec\FaceRec.csproj", "{C1180AE4-0944-4A1F-AF66-4D816FDDB435}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,18 @@ Global
 		{7BE80A68-082E-4B90-88B7-FE8FA249D5D7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7BE80A68-082E-4B90-88B7-FE8FA249D5D7}.Release|x86.ActiveCfg = Release|Any CPU
 		{7BE80A68-082E-4B90-88B7-FE8FA249D5D7}.Release|x86.Build.0 = Release|Any CPU
+		{BD73A1AC-8BFC-4053-BFCC-0AFDE5E6FC4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD73A1AC-8BFC-4053-BFCC-0AFDE5E6FC4C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BD73A1AC-8BFC-4053-BFCC-0AFDE5E6FC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD73A1AC-8BFC-4053-BFCC-0AFDE5E6FC4C}.Release|x86.ActiveCfg = Release|Any CPU
+		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Debug|x86.Build.0 = Debug|Any CPU
+		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Release|x86.ActiveCfg = Release|Any CPU
+		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

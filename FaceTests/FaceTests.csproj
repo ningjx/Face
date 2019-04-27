@@ -101,6 +101,7 @@
     <Compile Include="Data\LocalDataProviderTests.cs" />
     <Compile Include="Data\MongoDB\DBDataTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Python\PythonDataProviderTests.cs" />
     <Compile Include="Recognition\BaiduRecognitionProviderTests.cs" />
     <Compile Include="Resources\Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
