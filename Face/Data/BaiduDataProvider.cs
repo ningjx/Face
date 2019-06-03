@@ -212,7 +212,7 @@ namespace Face.Data
                 JToken infoArry = value["face_list"];
 
                 string age = infoArry[0]["age"].ToString();
-                string beauty = infoArry[0]["age"].ToString();
+                string beauty = infoArry[0]["beauty"].ToString();
                 string gender = infoArry[0]["gender"]["type"].ToString();
                 string result = $"年龄：{age}\r\n颜值：{beauty}\r\n性别：{gender}\r\n";
                 return result;

@@ -20,12 +20,15 @@ namespace Face
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            Login loginform = new Login();
+            loginform.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            File file = new File();
+            file.Show();
+            this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -49,8 +52,7 @@ namespace Face
 
         private void skinButton2_Click(object sender, EventArgs e)
         {
-            FormTest formTest = new FormTest();
-            formTest.Show();
+           
         }
 
         //private void FrmMain_FormClosde(object sender, FormClosingEventArgs e)

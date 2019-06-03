@@ -56,14 +56,16 @@ namespace Face
                     () =>
                     {
                         BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
-                        LocalDataProvider localDataProvider = new LocalDataProvider();
+                        //LocalDataProvider localDataProvider = new LocalDataProvider();
                         Tuple<bool, string> tuple = baiduDataProvider.NetFaceRegisterData(Image, userName, faceInfo);
-                        Tuple<bool, string> localTuple = localDataProvider.LocalFaceRegisterData(Image, userName, faceInfo);
-                        if (tuple.Item1 && localTuple.Item1)
-                            return tuple;
-                        else if (!localTuple.Item1)
-                            return localTuple;
-                        else if (!tuple.Item1)
+                        //Tuple<bool, string> localTuple = localDataProvider.LocalFaceRegisterData(Image, userName, faceInfo);
+                        //if (tuple.Item1 && localTuple.Item1)
+                        //    return tuple;
+                        //else if (!localTuple.Item1)
+                        //    return localTuple;
+                        //else if (!tuple.Item1)
+                        //    return tuple;
+                        if (tuple.Item1)
                             return tuple;
                         else
                             return new Tuple<bool, string>(false, "本地保存出错，网络保存出错");
