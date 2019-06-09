@@ -26,7 +26,7 @@ namespace Face
 
         private void skinButton1_Click(object sender, EventArgs e)
         {
-            BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+            FaceDataProvider baiduDataProvider = new FaceDataProvider();
             skinTextBox2.Text =  baiduDataProvider.GetData(skinTextBox1.Text);
             LocalDataProvider localDataProvider = new LocalDataProvider();
             skinPictureBox1.Image = localDataProvider.LocalFaceGetData(skinTextBox1.Text);

@@ -18,7 +18,7 @@ namespace Face.Data.Tests
         public void NetRecognitionDataTest()
         {
             Image image = Resource2.Screenshot_2018_10_25_14_00_18_951_com_tencent_mo;
-            BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+            FaceDataProvider baiduDataProvider = new FaceDataProvider();
             Dictionary<string, string> faceInfo = baiduDataProvider.NetRecognitionData(image);
         }
         //+		[1]	{[faceToken, 7d694c3b5db9360050081b77bd015dcd]}	System.Collections.Generic.KeyValuePair<string, string>
@@ -27,7 +27,7 @@ namespace Face.Data.Tests
         public void NetFaceMatchDataTest()
         {
             Image image = Resource1.qq_pic_merged_1552621462658;
-            BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+            FaceDataProvider baiduDataProvider = new FaceDataProvider();
             string a = baiduDataProvider.NetFaceMatchData(image);
         }
 

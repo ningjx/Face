@@ -127,7 +127,7 @@ namespace Face
                 label2.Text = "正在检测";
                 Task<Tuple<Image, string>> task = new Task<Tuple<Image, string>>(() =>
                 {
-                    BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                    FaceDataProvider baiduDataProvider = new FaceDataProvider();
                     Tuple<Image, string> data = new Tuple<Image, string>(baiduDataProvider.DrawSquar(image), baiduDataProvider.NetRecognitionDataStr(image)) { };
                     return data;
                 });
@@ -160,7 +160,7 @@ namespace Face
                 Task<Tuple<Image, string>> task = new Task<Tuple<Image, string>>
                 (() =>
                 {
-                    BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                    FaceDataProvider baiduDataProvider = new FaceDataProvider();
                     string text = baiduDataProvider.NetFaceMatchData(image);
                     Image imageDeal = baiduDataProvider.DrawSquar(image);
                     Tuple<Image, string> tuple = new Tuple<Image, string>(imageDeal, text);
@@ -204,7 +204,7 @@ namespace Face
             videoSourcePlayer1.Stop();
             MainForm mainForm = new MainForm();
             mainForm.Show();
-            this.Close();
+            Close();
         }
 
         private void SkinTextBox1_Paint(object sender, PaintEventArgs e)

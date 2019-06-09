@@ -72,12 +72,14 @@ namespace Face
         /// <param name="e"></param>
         private void SkinButton1_Click(object sender, EventArgs e)
         {
+            string path = System.IO.Path.GetFullPath(dialog.FileName);
             Image image = pictureBox1.Image;
             label2.Text = "正在检测";
             Task<Tuple<Image, string>> taskK = new Task<Tuple<Image, string>>(() =>
             {
-                BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
-                Tuple<Image, string> data = new Tuple<Image, string>(baiduDataProvider.DrawSquar(image), baiduDataProvider.NetRecognitionDataStr(image)) { };
+                FaceDataProvider baiduDataProvider = new FaceDataProvider();
+                Tuple<Image, string> data = new Tuple<Image, string>(baiduDataProvider.DrawSquar(image, path), baiduDataProvider.NetRecognitionDataStr(image)) { };
+
                 return data;
             });
             taskK.Start();
@@ -96,7 +98,7 @@ namespace Face
         {
             Image image = pictureBox1.Image;
             label2.Text = "正在识别";
-            BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+            FaceDataProvider baiduDataProvider = new FaceDataProvider();
             skinTextBox1.Text = baiduDataProvider.NetFaceMatchData(image);
             pictureBox1.Image = baiduDataProvider.DrawSquar(image);
             label2.Text = "";

@@ -12,7 +12,7 @@ detector = dlib.get_frontal_face_detector()
 #初始化窗口
 win = dlib.image_window()
  
-cap = cv2.VideoCapture('H:/2.mp4')
+cap = cv2.VideoCapture('')
 #cap = cv2.VideoCapture(0)
 while cap.isOpened():
     ok, cv_img = cap.read()
@@ -37,9 +37,6 @@ while cap.isOpened():
             print('Part {}: {}'.format(index, pt))
             pt_pos = (pt.x, pt.y)
             cv2.circle(img, pt_pos, 1, (0,225, 0), 2)
-        # 利用cv2.putText输出1-68
-            font = cv2.FONT_HERSHEY_SIMPLEX
-            cv2.putText(img, str(index+1),pt_pos,font, 0.3, (0, 0, 255), 1, cv2.LINE_AA)
  
  
  

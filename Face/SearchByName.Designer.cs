@@ -147,6 +147,7 @@
             this.skinPictureBox1.Location = new System.Drawing.Point(288, 39);
             this.skinPictureBox1.Name = "skinPictureBox1";
             this.skinPictureBox1.Size = new System.Drawing.Size(505, 404);
+            this.skinPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.skinPictureBox1.TabIndex = 3;
             this.skinPictureBox1.TabStop = false;
             // 

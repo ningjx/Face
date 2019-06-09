@@ -39,15 +39,17 @@ namespace Face
 
         private void Label2_Click(object sender, EventArgs e)
         {
+            label3.Text = "正在验证";
             Bitmap bitmap = videoSourcePlayer1.GetCurrentVideoFrame();
             pictureBox1.Image = bitmap;
             this.videoSourcePlayer1.Visible = false;
             this.pictureBox1.Visible = true;
             videoSourcePlayer1.Stop();
-            BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+            FaceDataProvider baiduDataProvider = new FaceDataProvider();
             bool text = baiduDataProvider.Login(pictureBox1.Image);
             if (text)
             {
+                label3.Text = "";
                 MainForm mainForm = new MainForm();
                 PublicValue.Locker = true;
                 mainForm.Show();
@@ -55,6 +57,7 @@ namespace Face
             }
             else
             {
+                label3.Text = "";
                 MessageBox.Show("登陆失败");
                 MainForm mainForm = new MainForm();
                 mainForm.Show();

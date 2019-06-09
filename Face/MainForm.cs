@@ -17,7 +17,8 @@ namespace Face
     {
         public MainForm()
         {
-            InitializeComponent();    
+            InitializeComponent();
+            button6.Visible = false;
         }
         public class PublicValue
         {
@@ -25,8 +26,8 @@ namespace Face
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
-            baiduDataProvider.NetRecognitionData(Resource1.Image1);
+            //BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+            //baiduDataProvider.NetRecognitionData(Resource1.Image1);
             button1.Enabled = PublicValue.Locker;
             button2.Enabled = PublicValue.Locker;
             button3.Enabled = PublicValue.Locker;
@@ -97,6 +98,12 @@ namespace Face
                 loginform.Show();
                 this.Hide();
             }
+        }
+
+        private void Button6_Click(object sender, EventArgs e)
+        {
+            FormTest formTest = new FormTest();
+            formTest.Show();
         }
 
         //private void FrmMain_FormClosde(object sender, FormClosingEventArgs e)

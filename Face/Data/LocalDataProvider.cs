@@ -27,9 +27,15 @@ namespace Face.Data
         {
             try
             {
-                BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                FaceDataProvider baiduDataProvider = new FaceDataProvider();
                 Dictionary<string, string> data = baiduDataProvider.NetRecognitionData(image);
                 data.TryGetValue("faceToken", out string faceToken);
+
+                //Bitmap bmp = new Bitmap(image);
+                //image.Dispose();
+                //string name = baiduDataProvider.ChineseToPinyin(userName).ToLower();
+                //string fielName = @"D:\FaceProject\Face\Face\Pictures\" + name + ".jpg";
+                //bmp.Save("fielName");
 
                 DBData dBData = new DBData();
                 dBData.SetFace(image, faceToken, userName);
@@ -39,6 +45,7 @@ namespace Face.Data
             }
             catch (Exception ex) { return new Tuple<bool, string>(false, ex.ToString()); }
         }
+
 
         /// <summary>
         /// 本地通过名字获取图片

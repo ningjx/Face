@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceTests", "FaceTests\Face
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonFace", "PythonFace\PythonFace.pyproj", "{BD73A1AC-8BFC-4053-BFCC-0AFDE5E6FC4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceRec", "FaceRec\FaceRec.csproj", "{C1180AE4-0944-4A1F-AF66-4D816FDDB435}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,14 +37,6 @@ Global
 		{BD73A1AC-8BFC-4053-BFCC-0AFDE5E6FC4C}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{BD73A1AC-8BFC-4053-BFCC-0AFDE5E6FC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD73A1AC-8BFC-4053-BFCC-0AFDE5E6FC4C}.Release|x86.ActiveCfg = Release|Any CPU
-		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Debug|x86.Build.0 = Debug|Any CPU
-		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Release|x86.ActiveCfg = Release|Any CPU
-		{C1180AE4-0944-4A1F-AF66-4D816FDDB435}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

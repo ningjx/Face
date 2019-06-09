@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\DlibDotNet.19.17.0.20190513\build\DlibDotNet.props" Condition="Exists('..\packages\DlibDotNet.19.17.0.20190513\build\DlibDotNet.props')" />
   <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -9,7 +10,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Face</RootNamespace>
     <AssemblyName>Face</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -31,9 +32,10 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -68,7 +70,7 @@
     <OutputPath>bin\x86\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
@@ -119,14 +121,17 @@
     <Reference Include="AForge.Video.DirectShow, Version=2.2.5.0, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
       <HintPath>..\packages\AForge.Video.DirectShow.2.2.5\lib\AForge.Video.DirectShow.dll</HintPath>
     </Reference>
-    <Reference Include="AipSdk, Version=3.6.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Baidu.AI.3.6.6\lib\net45\AipSdk.dll</HintPath>
+    <Reference Include="AipSdk, Version=3.6.13.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Baidu.AI.3.6.13\lib\net45\AipSdk.dll</HintPath>
     </Reference>
     <Reference Include="ChnCharInfo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=18f031bd02e5e291, processorArchitecture=MSIL">
       <HintPath>..\packages\WfyExpress.Depends.ChnCharInfo.1.0.0\lib\ChnCharInfo.dll</HintPath>
     </Reference>
     <Reference Include="CSkin">
       <HintPath>..\Dll\CSkin.dll</HintPath>
+    </Reference>
+    <Reference Include="DlibDotNet, Version=19.17.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DlibDotNet.19.17.0.20190513\lib\netstandard2.0\DlibDotNet.dll</HintPath>
     </Reference>
     <Reference Include="DnsClient, Version=1.2.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
       <HintPath>..\packages\DnsClient.1.2.0\lib\net45\DnsClient.dll</HintPath>
@@ -146,6 +151,9 @@
     <Reference Include="Microsoft.Dynamic, Version=1.2.2.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamicLanguageRuntime.1.2.2\lib\net45\Microsoft.Dynamic.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Extensions.CommandLineUtils, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.CommandLineUtils.1.1.1\lib\net451\Microsoft.Extensions.CommandLineUtils.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Scripting, Version=1.2.2.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamicLanguageRuntime.1.2.2\lib\net45\Microsoft.Scripting.dll</HintPath>
     </Reference>
@@ -161,6 +169,7 @@
     <Reference Include="MongoDB.Driver.Core, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Driver.Core.2.8.0\lib\net452\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
+    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -224,12 +233,11 @@
     </Compile>
     <Compile Include="CameraCoulm\CameraProvider.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="Data\BaiduDataProvider.cs" />
-    <Compile Include="Data\BaiduDataSource.cs" />
+    <Compile Include="Data\FaceDataProvider.cs" />
     <Compile Include="Data\LocalDataProvider.cs" />
     <Compile Include="Data\MongoDB\DBData.cs" />
     <Compile Include="Data\MongoDB\DBHelper.cs" />
-    <Compile Include="Data\Redis\SaveFace.cs" />
+    <Compile Include="Data\RecDataProvider.cs" />
     <Compile Include="File.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,12 +264,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\Redis\RedisConfig.cs" />
-    <Compile Include="Data\Redis\RedisInformation.cs" />
     <Compile Include="Python\PythonDataProvider.cs" />
-    <Compile Include="Recognition\BaiduKey.cs" />
-    <Compile Include="Recognition\BaiduRecognitionProvider.cs" />
-    <Compile Include="Recognition\LocalRecognitionProvider.cs" />
+    <Compile Include="Recognition\Key.cs" />
+    <Compile Include="Recognition\RecognitionProvider.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\DisposableObject.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\Dlib\Python\CnnFaceDetectionModelV1.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\Dlib\Python\FaceRecognitionModelV1.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\Dlib\Python\SimpleObjectDetector.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\FaceEncoding.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\FacePart.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\FaceRecognition.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\FaceRecognitionModels.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\Image.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\Location.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\Mode.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\Model.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\Point.cs" />
+    <Compile Include="Recognition\FaceRecognitionDotNet\PredictorModel.cs" />
     <Compile Include="Register.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -311,6 +330,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
@@ -352,8 +372,14 @@
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Pictures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Recognition\FaceMoudel\dlib_face_recognition_resnet_model_v1.dat" />
+    <None Include="Recognition\FaceMoudel\mmod_human_face_detector.dat" />
+    <None Include="Recognition\FaceMoudel\shape_predictor_5_face_landmarks.dat" />
+    <None Include="Recognition\FaceMoudel\shape_predictor_68_face_landmarks.dat" />
     <None Include="Resources\Image1.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -388,7 +414,10 @@
     <Error Condition="!Exists('..\packages\Accord.Video.FFMPEG.3.8.0\build\Accord.Video.FFMPEG.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Accord.Video.FFMPEG.3.8.0\build\Accord.Video.FFMPEG.targets'))" />
     <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.props'))" />
     <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.targets'))" />
+    <Error Condition="!Exists('..\packages\DlibDotNet.19.17.0.20190513\build\DlibDotNet.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\DlibDotNet.19.17.0.20190513\build\DlibDotNet.props'))" />
+    <Error Condition="!Exists('..\packages\DlibDotNet.19.17.0.20190513\build\DlibDotNet.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\DlibDotNet.19.17.0.20190513\build\DlibDotNet.targets'))" />
   </Target>
   <Import Project="..\packages\Accord.Video.FFMPEG.3.8.0\build\Accord.Video.FFMPEG.targets" Condition="Exists('..\packages\Accord.Video.FFMPEG.3.8.0\build\Accord.Video.FFMPEG.targets')" />
   <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" />
+  <Import Project="..\packages\DlibDotNet.19.17.0.20190513\build\DlibDotNet.targets" Condition="Exists('..\packages\DlibDotNet.19.17.0.20190513\build\DlibDotNet.targets')" />
 </Project>

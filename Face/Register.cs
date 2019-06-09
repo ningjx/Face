@@ -54,7 +54,7 @@ namespace Face
                     Task<Tuple<bool, string>> task = new Task<Tuple<bool, string>>(
                     () =>
                     {
-                        BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+                        FaceDataProvider baiduDataProvider = new FaceDataProvider();
                         
                         Tuple<bool, string> tuple = baiduDataProvider.NetFaceRegisterData(Image, userName, faceInfo);
                         
