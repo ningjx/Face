@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CCWin;
 using Face.CameraCoulm;
+using Face.Data;
+using static Face.MainForm;
 
 namespace Face
 {
@@ -26,8 +28,6 @@ namespace Face
             cameraProvider.cameraIndex = 0;
             videoSourcePlayer1.VideoSource = cameraProvider.CamRunning();//调用摄像头实时画面
             videoSourcePlayer1.Start();
-            Bitmap bitmap = videoSourcePlayer1.GetCurrentVideoFrame();
-            pictureBox1.Image = bitmap;
         }
 
         private void Label1_Click(object sender, EventArgs e)
@@ -35,6 +35,36 @@ namespace Face
             Password pa = new Password();
             pa.Show();
             this.Close();
+        }
+
+        private void Label2_Click(object sender, EventArgs e)
+        {
+            Bitmap bitmap = videoSourcePlayer1.GetCurrentVideoFrame();
+            pictureBox1.Image = bitmap;
+            this.videoSourcePlayer1.Visible = false;
+            this.pictureBox1.Visible = true;
+            videoSourcePlayer1.Stop();
+            BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+            bool text = baiduDataProvider.Login(pictureBox1.Image);
+            if (text)
+            {
+                MainForm mainForm = new MainForm();
+                PublicValue.Locker = true;
+                mainForm.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("登陆失败");
+                MainForm mainForm = new MainForm();
+                mainForm.Show();
+                this.Hide();
+            }
+        }
+
+        private void VideoSourcePlayer1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

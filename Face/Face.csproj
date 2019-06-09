@@ -223,6 +223,7 @@
       <DependentUpon>Camera.cs</DependentUpon>
     </Compile>
     <Compile Include="CameraCoulm\CameraProvider.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Data\BaiduDataProvider.cs" />
     <Compile Include="Data\BaiduDataSource.cs" />
     <Compile Include="Data\LocalDataProvider.cs" />
@@ -272,12 +273,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
-    <Compile Include="Search.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Search.Designer.cs">
-      <DependentUpon>Search.cs</DependentUpon>
-    </Compile>
     <Compile Include="SearchByName.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -323,9 +318,6 @@
     <EmbeddedResource Include="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Search.resx">
-      <DependentUpon>Search.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SearchByName.resx">
       <DependentUpon>SearchByName.cs</DependentUpon>

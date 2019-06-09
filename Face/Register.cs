@@ -51,22 +51,19 @@ namespace Face
                     string userName = skinTextBox1.Text;
                     string info = skinTextBox3.Text;
                     JObject faceInfo = new JObject { { "value", info } };
-                    //skinButton1.Text = "正在往里录";
                     Task<Tuple<bool, string>> task = new Task<Tuple<bool, string>>(
                     () =>
                     {
                         BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
-                        //LocalDataProvider localDataProvider = new LocalDataProvider();
+                        
                         Tuple<bool, string> tuple = baiduDataProvider.NetFaceRegisterData(Image, userName, faceInfo);
-                        //Tuple<bool, string> localTuple = localDataProvider.LocalFaceRegisterData(Image, userName, faceInfo);
-                        //if (tuple.Item1 && localTuple.Item1)
-                        //    return tuple;
-                        //else if (!localTuple.Item1)
-                        //    return localTuple;
-                        //else if (!tuple.Item1)
-                        //    return tuple;
+                        
                         if (tuple.Item1)
+                        {
+                            LocalDataProvider localDataProvider = new LocalDataProvider();
+                            localDataProvider.LocalFaceRegisterData(Image, userName);
                             return tuple;
+                        }  
                         else
                             return new Tuple<bool, string>(false, "本地保存出错，网络保存出错");
 
@@ -77,7 +74,7 @@ namespace Face
                     {
                         if (task.Result.Item1)
                         {
-                            MessageBox.Show("录进去了");
+                            MessageBox.Show("保存成功");
                             skinButton1.Enabled = false;
                         }
                         else
@@ -109,6 +106,16 @@ namespace Face
         private void skinButton2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void SkinTextBox2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Label2_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

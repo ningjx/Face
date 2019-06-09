@@ -21,13 +21,13 @@ namespace Face.Data.MongoDB
         /// <param name="faceToken"></param>
         /// <param name="userName"></param>
         /// <param name="info"></param>
-        public void SetFace(Image image, string faceToken, string userName, JObject info)
+        public void SetFace(Image image, string faceToken, string userName)
         {
             DBHelper dBHelper = new DBHelper();
             //图片转码
             string base64 = ImageToBase64(image);
 
-            Dictionary<string, object> data = new Dictionary<string, object> { { "Image", base64 }, { "FaceToken", faceToken }, { "UserName", userName }, { "Info", info } };
+            Dictionary<string, object> data = new Dictionary<string, object> { { "Image", base64 }, { "FaceToken", faceToken }, { "UserName", userName }};
             BsonDocument bsonElements = new BsonDocument();
             bsonElements.AddRange(data);
             dBHelper.SetData(bsonElements);

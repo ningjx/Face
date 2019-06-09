@@ -23,7 +23,7 @@ namespace Face.Data
         /// <param name="userName"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public Tuple<bool, string> LocalFaceRegisterData(Image image, string userName, JObject info)
+        public Tuple<bool, string> LocalFaceRegisterData(Image image, string userName)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace Face.Data
                 data.TryGetValue("faceToken", out string faceToken);
 
                 DBData dBData = new DBData();
-                dBData.SetFace(image, faceToken, userName, info);
+                dBData.SetFace(image, faceToken, userName);
                 bool mark = true;
                 string message = "保存完成";
                 return new Tuple<bool, string>(mark, message);
@@ -41,31 +41,27 @@ namespace Face.Data
         }
 
         /// <summary>
-        /// 本地通过名字获取数据
+        /// 本地通过名字获取图片
         /// </summary>
         /// <param name="name">人名</param>
         /// <returns></returns>
-        public Tuple<bool, Image, string, JObject> LocalFaceGetData(string name)
+        public Image LocalFaceGetData(string name)
         {
             try
             {
                 DBData dBData = new DBData();
                 BsonDocument data = dBData.GetFace(name).First();
                 data.TryGetValue("Image", out BsonValue base64);
-                data.TryGetValue("FaceToken", out BsonValue faceToken);
-                data.TryGetValue("UserName", out BsonValue userName);
-                data.TryGetValue("Info", out BsonValue infoBV);
                 bool sucess = true;
 
                 byte[] bytes = Convert.FromBase64String(base64.ToString());
                 MemoryStream memStream = new MemoryStream(bytes);
                 Image image = Image.FromStream(memStream);
-                JObject info = JsonConvert.DeserializeObject<JObject>(infoBV.ToJson());
-                return new Tuple<bool, Image, string, JObject>(sucess, image, faceToken.ToString(), info);
+                return image;
             }
             catch (Exception e)
             {
-                return new Tuple<bool, Image, string, JObject>(false, null, null, new JObject { "error_msg", e.ToString() });
+                return null;
             }
         }
     }

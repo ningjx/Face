@@ -9,13 +9,53 @@ using Face.Recognition;
 using Newtonsoft.Json;
 using Face.Data.MongoDB;
 using Microsoft.International.Converters.PinYinConverter;
+using System.Threading;
 
 namespace Face.Data
 {
     public class BaiduDataProvider
     {
+
+        public string GetData(string userName)
+        {
+            BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+            string userId = ChineseToPinyin(userName).ToLower();
+            JObject jsonData = baiduRecognitionProvider.GetInfo(userId);
+            if(jsonData == null)
+            {
+                return "查询失败";
+            }
+            jsonData.TryGetValue("result", out JToken value);
+            JToken infoArry = value["user_list"];
+            string info = infoArry[0]["user_info"].ToString();
+            JObject faceInfo = (JObject)JsonConvert.DeserializeObject(info);
+            string name = faceInfo["UserName"].ToString();
+            string text = faceInfo["value"].ToString();
+            return $"姓名:{name}\r\n信息:{text}";
+        }
+
+        public bool Login(Image image)
+        {
+            BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
+            bool loc = false;
+            //Task<JObject> @object = new Task<JObject>(baiduRecognitionProvider.NetFaceMatch(image) );
+            JObject jsonData = baiduRecognitionProvider.NetFaceMatch(image);
+            jsonData.TryGetValue("result", out JToken value);
+            JToken infoArry = value["user_list"];
+            string info = infoArry[0]["user_info"].ToString();
+            //info解析
+            JObject faceInfo = (JObject)JsonConvert.DeserializeObject(info);
+            string name = faceInfo["UserName"].ToString();
+            string score = infoArry[0]["score"].ToString().Substring(0, 5);
+            double ss = double.Parse(score);
+            if (name == "王宁" && ss >= 70)
+            {
+                loc = true;
+            }
+            return loc;
+        }
         /// <summary>
-        /// 根据百度数据库查找人脸
+        /// 根据百度数据库Match人脸
         /// </summary>
         /// <param name="image"></param>
         /// <returns></returns>
@@ -34,12 +74,13 @@ namespace Face.Data
                 string group = infoArry[0]["group_id"].ToString();
                 string info = infoArry[0]["user_info"].ToString();
                 //info解析
-                string[] faceInfo = info.Split('`');
+                JObject faceInfo = (JObject)JsonConvert.DeserializeObject(info);
+                //string[] faceInfo = info.Split('`');
 
-
-
-                string score = infoArry[0]["score"].ToString();
-                string result = $"姓名：{faceInfo[0]}\r\nID：{id}\r\n组名：{group}\r\n信息：{faceInfo[1] }\r\n匹配度：{score}\r\n人脸标识：{faceToken}\r\n";
+                string name = faceInfo["UserName"].ToString();
+                string text = faceInfo["value"].ToString();
+                string score = infoArry[0]["score"].ToString().Substring(0, 5);
+                string result = $"姓名：{name}\r\nID：{id}\r\n信息：{text}\r\n匹配度：{score}\r\n人脸标识：{faceToken}\r\n";
                 return result;
             }
             catch (Exception ex)
@@ -104,6 +145,7 @@ namespace Face.Data
         /// <returns></returns>
         public Image DrawSquar(Image image)
         {
+            Thread.Sleep(1000);
             Dictionary<string, string> faceInfo = NetRecognitionData(image);
             //构造矩形框的参数
             List<int> location = new List<int>();
@@ -176,7 +218,7 @@ namespace Face.Data
             {
                 BaiduRecognitionProvider baiduRecognitionProvider = new BaiduRecognitionProvider();
                 string groupId = "UsualUser";
-                string userId = ChineseToPinyin(userName);
+                string userId = ChineseToPinyin(userName).ToLower();
                 info.Add("UserName", userName);
                 JObject jsonData = baiduRecognitionProvider.NetFaceRegister(image, groupId, userId, info.ToString());
                 jsonData.TryGetValue("error_code", out JToken errorCodeToken);
@@ -211,10 +253,16 @@ namespace Face.Data
                 jsonData.TryGetValue("result", out JToken value);
                 JToken infoArry = value["face_list"];
 
-                string age = infoArry[0]["age"].ToString();
-                string beauty = infoArry[0]["beauty"].ToString();
-                string gender = infoArry[0]["gender"]["type"].ToString();
-                string result = $"年龄：{age}\r\n颜值：{beauty}\r\n性别：{gender}\r\n";
+                string left = infoArry[0]["location"]["left"].ToString();
+                string top = infoArry[0]["location"]["top"].ToString();
+                string width = infoArry[0]["location"]["width"].ToString();
+                string height = infoArry[0]["location"]["height"].ToString();
+
+                string yaw = infoArry[0]["angle"]["yaw"].ToString();
+                string pitch = infoArry[0]["angle"]["pitch"].ToString();
+                string roll = infoArry[0]["angle"]["roll"].ToString();
+
+                string result = $"人脸位置：\r\n    距离左边线:{left}\r\n    距离上边线:{top}\r\n    宽度:{width}\r\n    高度:{height}\r\n人脸翻转:\r\n    俯仰角:{yaw}\r\n    平移角:{pitch}\r\n    翻滚角:{roll}";
                 return result;
             }
             catch (Exception ex)

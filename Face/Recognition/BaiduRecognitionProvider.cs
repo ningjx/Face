@@ -191,5 +191,25 @@ namespace Face.Recognition
             string base64 = Convert.ToBase64String(arr);
             return base64;
         }
+
+        public JObject GetInfo(string userId)
+        {
+            try
+            {
+                var client = new Baidu.Aip.Face.Face(API_KEY, SECRET_KEY)
+                {
+                    Timeout = 60000  // 修改超时时间
+                };
+                var groupId = "UsualUser";
+
+                // 调用用户信息查询，可能会抛出网络等异常，请使用try/catch捕获
+                var result = client.UserGet(userId, groupId);
+                return result;
+            }
+            catch (Exception e)
+            {
+                return new JObject() { };
+            }  
+        }
     }
 }

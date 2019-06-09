@@ -38,6 +38,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.label1 = new System.Windows.Forms.Label();
             this.skinTextBox1 = new CCWin.SkinControl.SkinTextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,6 +49,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(2, 34);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(378, 409);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.PictureBox1_Click);
@@ -69,6 +71,7 @@
             this.skinButton1.TabIndex = 1;
             this.skinButton1.Text = "检测";
             this.skinButton1.UseVisualStyleBackColor = false;
+            this.skinButton1.Click += new System.EventHandler(this.SkinButton1_Click);
             // 
             // skinButton2
             // 
@@ -87,6 +90,7 @@
             this.skinButton2.TabIndex = 2;
             this.skinButton2.Text = "识别";
             this.skinButton2.UseVisualStyleBackColor = false;
+            this.skinButton2.Click += new System.EventHandler(this.SkinButton2_Click);
             // 
             // skinButton3
             // 
@@ -124,6 +128,7 @@
             this.skinButton4.TabIndex = 4;
             this.skinButton4.Text = "返回";
             this.skinButton4.UseVisualStyleBackColor = false;
+            this.skinButton4.Click += new System.EventHandler(this.SkinButton4_Click);
             // 
             // openFileDialog1
             // 
@@ -133,7 +138,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(160, 227);
+            this.label1.Location = new System.Drawing.Point(129, 222);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(120, 16);
             this.label1.TabIndex = 5;
@@ -183,11 +188,20 @@
             this.skinTextBox1.WordWrap = true;
             this.skinTextBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.SkinTextBox1_Paint);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(167, 226);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(0, 12);
+            this.label2.TabIndex = 7;
+            // 
             // File
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 445);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.skinTextBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.skinButton4);
@@ -215,5 +229,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Label label1;
         private CCWin.SkinControl.SkinTextBox skinTextBox1;
+        private System.Windows.Forms.Label label2;
     }
 }

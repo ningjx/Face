@@ -132,6 +132,7 @@
             this.skinTextBox1.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.skinTextBox1.WaterText = "";
             this.skinTextBox1.WordWrap = true;
+            this.skinTextBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.SkinTextBox1_Paint);
             // 
             // skinButton1
             // 
