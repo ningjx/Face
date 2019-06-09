@@ -25,12 +25,11 @@ namespace Face
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            //BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
-            //baiduDataProvider.NetRecognitionData(Resource1.Image1);
-            //if(Config.MainLoc)
-            //button1.Enabled = PublicValue.Locker;
-            //button2.Enabled = PublicValue.Locker;
-            //button3.Enabled = PublicValue.Locker;
+            BaiduDataProvider baiduDataProvider = new BaiduDataProvider();
+            baiduDataProvider.NetRecognitionData(Resource1.Image1);
+            button1.Enabled = PublicValue.Locker;
+            button2.Enabled = PublicValue.Locker;
+            button3.Enabled = PublicValue.Locker;
             if (PublicValue.Locker)
             {
                 button5.Text = "注销";

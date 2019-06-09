@@ -66,5 +66,12 @@ namespace Face
         {
 
         }
+
+        private void Label1_Click_1(object sender, EventArgs e)
+        {
+            MainForm mainForm = new MainForm();
+            this.Close();
+            mainForm.Show();
+        }
     }
 }

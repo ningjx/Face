@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchByName));
             this.skinTextBox1 = new CCWin.SkinControl.SkinTextBox();
             this.skinButton1 = new CCWin.SkinControl.SkinButton();
             this.skinTextBox2 = new CCWin.SkinControl.SkinTextBox();
@@ -68,7 +69,7 @@
             this.skinTextBox1.SkinTxt.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.skinTextBox1.SkinTxt.Location = new System.Drawing.Point(5, 5);
             this.skinTextBox1.SkinTxt.Name = "BaseText";
-            this.skinTextBox1.SkinTxt.Size = new System.Drawing.Size(175, 18);
+            this.skinTextBox1.SkinTxt.Size = new System.Drawing.Size(122, 18);
             this.skinTextBox1.SkinTxt.TabIndex = 0;
             this.skinTextBox1.SkinTxt.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
             this.skinTextBox1.SkinTxt.WaterText = "";
@@ -178,6 +179,7 @@
             this.Controls.Add(this.skinTextBox2);
             this.Controls.Add(this.skinButton1);
             this.Controls.Add(this.skinTextBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SearchByName";
             this.Text = "姓名搜索";
             this.Load += new System.EventHandler(this.SearchByName_Load);
