@@ -28,8 +28,8 @@ namespace Face
         {
             FaceDataProvider baiduDataProvider = new FaceDataProvider();
             skinTextBox2.Text =  baiduDataProvider.GetData(skinTextBox1.Text);
-            LocalDataProvider localDataProvider = new LocalDataProvider();
-            skinPictureBox1.Image = localDataProvider.LocalFaceGetData(skinTextBox1.Text);
+            //LocalDataProvider localDataProvider = new LocalDataProvider();
+            //skinPictureBox1.Image = localDataProvider.LocalFaceGetData(skinTextBox1.Text);
         }
 
         private void SkinTextBox1_Paint(object sender, PaintEventArgs e)

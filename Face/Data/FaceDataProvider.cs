@@ -20,9 +20,9 @@ namespace Face.Data
 
         public string GetData(string userName)
         {
-            RecognitionProvider baiduRecognitionProvider = new RecognitionProvider();
+            RecognitionProvider recognitionProvider = new RecognitionProvider();
             string userId = ChineseToPinyin(userName).ToLower();
-            JObject jsonData = baiduRecognitionProvider.GetInfo(userId);
+            JObject jsonData = recognitionProvider.GetInfo(userId);
             if (jsonData == null)
             {
                 return "查询失败";
@@ -36,12 +36,17 @@ namespace Face.Data
             return $"姓名:{name}\r\n信息:{text}";
         }
 
+        /// <summary>
+        /// 登录验证
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
         public bool Login(Image image)
         {
-            RecognitionProvider baiduRecognitionProvider = new RecognitionProvider();
+            RecognitionProvider recognitionProvider = new RecognitionProvider();
             bool loc = false;
             //Task<JObject> @object = new Task<JObject>(baiduRecognitionProvider.NetFaceMatch(image) );
-            JObject jsonData = baiduRecognitionProvider.NetFaceMatch(image);
+            JObject jsonData = recognitionProvider.NetFaceMatch(image);
             jsonData.TryGetValue("result", out JToken value);
             JToken infoArry = value["user_list"];
             string info = infoArry[0]["user_info"].ToString();
@@ -56,8 +61,9 @@ namespace Face.Data
             }
             return loc;
         }
+
         /// <summary>
-        /// 根据百度数据库Match人脸
+        /// 根据数据库Match人脸
         /// </summary>
         /// <param name="image"></param>
         /// <returns></returns>
@@ -65,10 +71,10 @@ namespace Face.Data
         {
             try
             {
-                RecognitionProvider baiduRecognitionProvider = new RecognitionProvider();
+                RecognitionProvider recognitionProvider = new RecognitionProvider();
 
                 //Task<JObject> @object = new Task<JObject>(baiduRecognitionProvider.NetFaceMatch(image) );
-                JObject jsonData = baiduRecognitionProvider.NetFaceMatch(image);
+                JObject jsonData = recognitionProvider.NetFaceMatch(image);
                 jsonData.TryGetValue("result", out JToken value);
                 JToken infoArry = value["user_list"];
                 string faceToken = value["face_token"].ToString();
@@ -103,10 +109,10 @@ namespace Face.Data
             try
             {
 
-                RecognitionProvider baiduRecognitionProvider = new RecognitionProvider();
+                RecognitionProvider recognitionProvider = new RecognitionProvider();
 
                 //Task<JObject> @object = new Task<JObject>(baiduRecognitionProvider.NetFaceMatch(image) );
-                JObject jsonData = baiduRecognitionProvider.NetRecognition(image);
+                JObject jsonData = recognitionProvider.NetRecognition(image);
                 jsonData.TryGetValue("result", out JToken value);
                 JToken infoArry = value["face_list"];
 
@@ -237,7 +243,7 @@ namespace Face.Data
         }
 
         /// <summary>
-        /// 网络保存人脸
+        /// 保存人脸
         /// </summary>
         /// <param name="image"></param>
         /// <param name="groupId"></param>
@@ -248,8 +254,8 @@ namespace Face.Data
         {
             try
             {
-                RecognitionProvider baiduRecognitionProvider = new RecognitionProvider();
-                JObject jsonData = baiduRecognitionProvider.NetFaceRegister(image, groupId, userId, info);
+                RecognitionProvider recognitionProvider = new RecognitionProvider();
+                JObject jsonData = recognitionProvider.NetFaceRegister(image, groupId, userId, info);
                 jsonData.TryGetValue("error_code", out JToken errorCodeToken);
                 jsonData.TryGetValue("error_msg", out JToken errorMessageToken);
                 bool mark = true;
@@ -274,11 +280,11 @@ namespace Face.Data
         {
             try
             {
-                RecognitionProvider baiduRecognitionProvider = new RecognitionProvider();
+                RecognitionProvider recognitionProvider = new RecognitionProvider();
                 string groupId = "UsualUser";
                 string userId = ChineseToPinyin(userName).ToLower();
                 info.Add("UserName", userName);
-                JObject jsonData = baiduRecognitionProvider.NetFaceRegister(image, groupId, userId, info.ToString());
+                JObject jsonData = recognitionProvider.NetFaceRegister(image, groupId, userId, info.ToString());
                 jsonData.TryGetValue("error_code", out JToken errorCodeToken);
                 jsonData.TryGetValue("error_msg", out JToken errorMessageToken);
                 bool mark = true;
@@ -304,10 +310,10 @@ namespace Face.Data
         {
             try
             {
-                RecognitionProvider baiduRecognitionProvider = new RecognitionProvider();
+                RecognitionProvider recognitionProvider = new RecognitionProvider();
 
                 //Task<JObject> @object = new Task<JObject>(baiduRecognitionProvider.NetFaceMatch(image) );
-                JObject jsonData = baiduRecognitionProvider.NetRecognition(image);
+                JObject jsonData = recognitionProvider.NetRecognition(image);
                 jsonData.TryGetValue("result", out JToken value);
                 JToken infoArry = value["face_list"];
 
@@ -340,8 +346,8 @@ namespace Face.Data
         {
             try
             {
-                RecognitionProvider baiduRecognitionProvider = new RecognitionProvider();
-                JObject jsonData = baiduRecognitionProvider.NetTwoFaceMatch(sourceImage, matchImage);
+                RecognitionProvider recognitionProvider = new RecognitionProvider();
+                JObject jsonData = recognitionProvider.NetTwoFaceMatch(sourceImage, matchImage);
                 jsonData.TryGetValue("error_code", out JToken errorCodeToken);
                 jsonData.TryGetValue("error_msg", out JToken errorMessageToken);
                 jsonData.TryGetValue("result", out JToken value);

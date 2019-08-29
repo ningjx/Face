@@ -12,7 +12,7 @@ namespace FaceRecognitionDotNet
         #region Constructors
 
         /// <summary>
-        /// 实例初始化 <see cref="Point"/> 使用指定的坐标构造
+        /// 实例化 <see cref="Point"/> 使用指定的坐标构造
         /// </summary>
         /// <param name="x">点的水平位置。</param>
         /// <param name="y">点的垂直位置。.</param>

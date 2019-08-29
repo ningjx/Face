@@ -79,8 +79,8 @@ namespace FaceRecognitionDotNet
         /// <summary>
         /// 填充 <see cref="SerializationInfo"/>使用序列化目标对象所需的数据.
         /// </summary>
-        /// <param name="info">The <see cref="SerializationInfo"/> to populate with data.</param>
-        /// <param name="context">The destination (see <see cref="StreamingContext"/>) for this serialization.</param>
+        /// <param name="info">The <see cref="SerializationInfo"/> 填充.</param>
+        /// <param name="context">上下文 (see <see cref="StreamingContext"/>) 序列化</param>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue(nameof(this._Encoding), this._Encoding.ToArray());

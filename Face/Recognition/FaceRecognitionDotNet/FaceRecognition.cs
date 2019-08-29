@@ -149,7 +149,7 @@ namespace FaceRecognitionDotNet
         }
 
         /// <summary>
-        /// 将可枚举的人脸编码集合与候选编码进行比较，看看它们是否匹配。
+        /// 将可枚举的人脸编码集合与候选编码进行比较，看它们是否匹配。
         /// </summary>
         /// <param name="knownFaceEncodings">An enumerable collection of known face encodings.</param>
         /// <param name="faceEncodingToCheck">A single face encoding to compare against the enumerable collection.</param>
@@ -189,11 +189,11 @@ namespace FaceRecognitionDotNet
         }
 
         /// <summary>
-        /// Compare a face encoding to a known face encoding and get a euclidean distance for comparison face.
+        /// 将人脸编码与已知人脸编码进行比较，得到比较人脸的欧式距离
         /// </summary>
-        /// <param name="faceEncoding">The face encoding to compare.</param>
-        /// <param name="faceToCompare">The face encoding to compare against.</param>
-        /// <returns>The euclidean distance for comparison face. If 0, faces are completely equal.</returns>
+        /// <param name="faceEncoding">带比较</param>
+        /// <param name="faceToCompare">源</param>
+        /// <returns>欧几里得距离用于比较面，如果是0，面是完全相等的</returns>
         /// <exception cref="ArgumentNullException"><paramref name="faceEncoding"/> or <paramref name="faceToCompare"/> is null.</exception>
         /// <exception cref="ObjectDisposedException"><paramref name="faceEncoding"/> or <paramref name="faceToCompare"/> is disposed.</exception>
         public static double FaceDistance(FaceEncoding faceEncoding, FaceEncoding faceToCompare)
@@ -458,7 +458,7 @@ namespace FaceRecognitionDotNet
         }
 
         /// <summary>
-        /// Creates an <see cref="Image"/> from the <see cref="byte"/> array.
+        /// 从byte创建一个数组加载图片
         /// </summary>
         /// <param name="array">The <see cref="byte"/> array contains image data.</param>
         /// <param name="row">The number of rows in a image data.</param>

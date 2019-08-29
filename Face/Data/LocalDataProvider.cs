@@ -11,6 +11,8 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using FaceRecognitionDotNet;
+using Image = System.Drawing.Image;
 
 namespace Face.Data
 {
@@ -46,7 +48,6 @@ namespace Face.Data
             catch (Exception ex) { return new Tuple<bool, string>(false, ex.ToString()); }
         }
 
-
         /// <summary>
         /// 本地通过名字获取图片
         /// </summary>
@@ -70,6 +71,13 @@ namespace Face.Data
             {
                 return null;
             }
+        }
+
+        public void GetFaceEncoding()
+        {
+            var faceRecognition = FaceRecognition.Create(@"D:\FaceProject\Face\Face\Recognition\FaceMoudel");
+            var img = FaceRecognition.LoadImageFile("");
+            faceRecognition.FaceEncodings(img);
         }
     }
 }

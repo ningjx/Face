@@ -96,7 +96,6 @@ namespace Face.Recognition
 
         }
 
-
         /// <summary>
         /// 人脸匹配
         /// </summary>
@@ -131,12 +130,17 @@ namespace Face.Recognition
             }
         }
 
-
         public JObject NetGetUserInfo(string userName)
         {
             return new JObject();
         }
 
+        /// <summary>
+        /// 匹配
+        /// </summary>
+        /// <param name="sourceImage"></param>
+        /// <param name="matchImage"></param>
+        /// <returns></returns>
         public JObject NetTwoFaceMatch(Image sourceImage, Image matchImage)
         {
             try
@@ -180,6 +184,11 @@ namespace Face.Recognition
             }
         }
 
+        /// <summary>
+        /// 图片转码
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
         private string ImageToBase64(Image image)
         {
             //图片转为Base64
@@ -192,6 +201,11 @@ namespace Face.Recognition
             return base64;
         }
 
+        /// <summary>
+        /// 获取数据库用户信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public JObject GetInfo(string userId)
         {
             try

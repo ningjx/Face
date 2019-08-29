@@ -60,8 +60,8 @@ namespace Face
                         
                         if (tuple.Item1)
                         {
-                            LocalDataProvider localDataProvider = new LocalDataProvider();
-                            localDataProvider.LocalFaceRegisterData(Image, userName);
+                            //LocalDataProvider localDataProvider = new LocalDataProvider();
+                            //localDataProvider.LocalFaceRegisterData(Image, userName);
                             return tuple;
                         }  
                         else
