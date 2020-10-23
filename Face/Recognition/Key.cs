@@ -10,9 +10,9 @@ namespace Face.Recognition
     {
         public object GetConnectToBaidu()
         {
-            string APP_ID = "15757485";
-            string API_KEY = "DbVT6z1gdKUk0NhyBZWIBd99";
-            string SECRET_KEY = "6EA1pNWcxlj3qUmy8uZ2DhQ1jO8OdC0G";
+            string APP_ID = "去百度申请";
+            string API_KEY = "去百度申请";
+            string SECRET_KEY = "去百度申请";
 
             var client = new Baidu.Aip.Face.Face(API_KEY, SECRET_KEY)
             {

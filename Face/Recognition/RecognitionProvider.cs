@@ -14,9 +14,9 @@ namespace Face.Recognition
 {
     public class RecognitionProvider
     {
-        private readonly string APP_ID = "15757485";
-        private readonly string API_KEY = "DbVT6z1gdKUk0NhyBZWIBd99";
-        private readonly string SECRET_KEY = "6EA1pNWcxlj3qUmy8uZ2DhQ1jO8OdC0G";
+        private readonly string APP_ID = "去百度申请";
+        private readonly string API_KEY = "去百度申请";
+        private readonly string SECRET_KEY = "去百度申请";
 
         /// <summary>
         /// 人脸识别
