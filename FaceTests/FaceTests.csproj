@@ -133,18 +133,14 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource2.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\qq_pic_merged_1552621462658.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\Screenshot_2018-10-25-14-00-18-951_com.tencent.mo.png" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

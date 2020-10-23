@@ -18,11 +18,11 @@ namespace Face.Recognition.Tests
         [TestMethod()]
         public void NetFaceRegisterTest()
         {
-            Image image = Resource1.qq_pic_merged_1552621462658;
-            string id = "gongjiaxin";
-            string name = "龚家新";
+            Image image = null;
+            string id = "id";
+            string name = "姓名";
             string group = "UsualUser";
-            string info = "老婆大人";
+            string info = "信息";
             string faceInfo = name + "`" + info;
             Task<JObject> task = new Task<JObject>(
                         () =>
@@ -38,7 +38,7 @@ namespace Face.Recognition.Tests
         [TestMethod()]
         public void NetRecognitionTest()
         {
-            Image image = Resource1.qq_pic_merged_1552621462658;
+            Image image = null;
             RecognitionProvider baiduRecognitionProvider = new RecognitionProvider();
             var data = baiduRecognitionProvider.NetRecognition(image);
         }
@@ -46,8 +46,8 @@ namespace Face.Recognition.Tests
         [TestMethod()]
         public void NetTwoFaceMatchTest()
         {
-            Image image1 = Resource1.qq_pic_merged_1552621462658;
-            Image image2 = Resource1.Screenshot_2018_10_25_14_00_18_951_com_tencent_mo;
+            Image image1 = null;
+            Image image2 = null;
             RecognitionProvider baiduRecognitionProvider = new RecognitionProvider();
             var data = baiduRecognitionProvider.NetTwoFaceMatch(image1, image2);
         }

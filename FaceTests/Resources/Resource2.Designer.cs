@@ -59,15 +59,5 @@ namespace FaceTests.Resources {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        public static System.Drawing.Bitmap Screenshot_2018_10_25_14_00_18_951_com_tencent_mo {
-            get {
-                object obj = ResourceManager.GetObject("Screenshot_2018_10_25_14_00_18_951_com_tencent_mo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

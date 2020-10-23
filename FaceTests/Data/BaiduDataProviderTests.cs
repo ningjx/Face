@@ -17,7 +17,7 @@ namespace Face.Data.Tests
         [TestMethod()]
         public void NetRecognitionDataTest()
         {
-            Image image = Resource2.Screenshot_2018_10_25_14_00_18_951_com_tencent_mo;
+            Image image = null;
             FaceDataProvider baiduDataProvider = new FaceDataProvider();
             Dictionary<string, string> faceInfo = baiduDataProvider.NetRecognitionData(image);
         }
@@ -26,7 +26,7 @@ namespace Face.Data.Tests
         [TestMethod()]
         public void NetFaceMatchDataTest()
         {
-            Image image = Resource1.qq_pic_merged_1552621462658;
+            Image image = null;
             FaceDataProvider baiduDataProvider = new FaceDataProvider();
             string a = baiduDataProvider.NetFaceMatchData(image);
         }
