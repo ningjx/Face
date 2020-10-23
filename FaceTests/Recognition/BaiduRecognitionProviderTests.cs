@@ -18,8 +18,8 @@ namespace Face.Recognition.Tests
         public void NetFaceRegisterTest()
         {
             Image image = Resource1.qq_pic_merged_1552621462658;
-            string id = "gongjiaxin";
-            string name = "龚家新";
+            string id = "id";
+            string name = "xx";
             string group = "UsualUser";
             string info = "老婆大人";
             string faceInfo = name + "`" + info;
